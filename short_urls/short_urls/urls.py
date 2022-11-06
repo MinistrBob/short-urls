@@ -14,14 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from .views import index, redirect_handler, page_not_found_404, page_not_found_500
+from django.urls import path, include
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home, name='home'),
-    path('<slug:slug>', redirect_handler, name='redirect_handler'),
+    path('', include('short_urls_app.urls')),
 ]
-
-handler404 = page_not_found_404
-handler500 = page_not_found_500
