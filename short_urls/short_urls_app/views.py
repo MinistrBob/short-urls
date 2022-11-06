@@ -8,19 +8,18 @@ def home(request):  # HttpRequest
 
 
 def redirect_handler(request, slug):
-    link = Person.objects.get(short_url=slug)
-    if link:
+    try:
+        link = Link.objects.get(short_url=slug, is_enabled=True)
         ip = get_client_ip(request)
         user_agent = request.META["HTTP_USER_AGENT"]
         print(f"Client-IP: {ip}")
         print(f"User-agent: {user_agent}")
-        click = Click.objects.get(link=link, ip=ip, user_agent=user_agent)
+        click = Click(link=link, ip=ip, user_agent=user_agent)
         click.save()
-        return redirect(link.short_url, permanent=True)
+        return redirect(link.long_url, permanent=True)
         # return HttpResponse(f"<h1>Redirect from {slug}</h1>")
-    else:
+    except Link.DoesNotExist:
         raise Http404()
-
     # if slug == 'main':
     #     return redirect('https://en.givinschool.org/', permanent=True)
     #     # return HttpResponse(f"<h1>Redirect from {slug}</h1>")
