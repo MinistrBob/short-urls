@@ -6,7 +6,7 @@ name: publish-release
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: ['master']
+    branches: ['main']
     paths:
       - 'short-urls/**'
       - '.github/workflows/*.yml'
@@ -16,7 +16,7 @@ on:
       - 'requirements.txt'
       - 'short_urls_run.sh'
   pull_request:
-    branches: ['master']
+    branches: ['main']
     paths:
       - 'short-urls/**'
       - '.github/workflows/*.yml'
