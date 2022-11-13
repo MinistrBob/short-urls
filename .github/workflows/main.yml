@@ -83,8 +83,10 @@ jobs:
           SSH_PORT: ${{ secrets.SSH_PORT }}
 
       # result = /home/runner/work/GivinSchoolPortal/GivinSchoolPortal
-      #- name: pwd
-        #run: pwd
+      - name: pwd
+        run: pwd
+      - name: ls -al
+        run: ls -al
 
       - name: Copy run sh
         run: scp /home/runner/work/short_urls/short_urls/portalgs_run.sh prod:/home/dr/portalgs_run.sh
