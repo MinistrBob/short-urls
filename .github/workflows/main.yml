@@ -82,11 +82,11 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
 
-      # result = /home/runner/work/GivinSchoolPortal/GivinSchoolPortal
-      - name: pwd
-        run: pwd
-      - name: ls -al
-        run: ls -al
+      # result = /home/runner/work/short-urls/short-urls
+      # - name: pwd
+        # run: pwd
+      # - name: ls -al
+        # run: ls -al
 
       - name: Copy run sh
         run: scp /home/runner/work/short-urls/short-urls/short_urls_run.sh prod:/home/dr/short_urls_run.sh
