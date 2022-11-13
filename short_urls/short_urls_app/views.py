@@ -4,7 +4,7 @@ from .models import Link, Click
 
 
 def home(request):  # HttpRequest
-    return HttpResponse(f"<h1>Home page</h1><br><code>{request.META}</code>")
+    return HttpResponse(f"<h1>Home page</h1>")
 
 
 def redirect_handler(request, slug):
