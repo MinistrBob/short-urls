@@ -89,7 +89,7 @@ jobs:
         run: ls -al
 
       - name: Copy run sh
-        run: scp /home/runner/work/short_urls/short_urls/portalgs_run.sh prod:/home/dr/portalgs_run.sh
+        run: scp /home/runner/work/short-urls/short-urls/short_urls_run.sh prod:/home/dr/short_urls_run.sh
 
       - name: Run sh
         run: ssh prod '/home/dr/short_urls_run.sh'
