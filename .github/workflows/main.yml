@@ -8,7 +8,7 @@ on:
   push:
     branches: ['main']
     paths:
-      - 'short-urls/**'
+      - 'short_urls/**'
       - '.github/workflows/*.yml'
       - 'Dockerfile'
       - '.dockerignore'
@@ -18,7 +18,7 @@ on:
   pull_request:
     branches: ['main']
     paths:
-      - 'short-urls/**'
+      - 'short_urls/**'
       - '.github/workflows/*.yml'
       - 'Dockerfile'
       - '.dockerignore'
