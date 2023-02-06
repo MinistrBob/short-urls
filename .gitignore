@@ -131,4 +131,4 @@ dmypy.json
 # JetBrains Rider
 .idea/
 short_urls/short_urls.sqlite3
-*.py
+short_urls/short_urls/settings.py
