@@ -1,5 +1,15 @@
 # short-urls
 
+## Static files
+При сборке docker контейнера не получится собрать статические файлы, т.к. setting подключается потом при старте контейнера, монтированием с диска.  
+Добавил в settings
+```bash
+import os
+
+STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+```
+
 
 ## For develop
 ### Get requirements.txt
