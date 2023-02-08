@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <!-- <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/> -->
+    <!-- IE -->
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /> -->
+    <!-- other browsers -->
+    <link rel="icon" type="image/x-icon" href="{% static 'short_urls_app/images/favicon.ico' %}" />
+  </head>
+  <body>
+    <!-- Content -->
+    <div id="content">
+    {% block content %}NULL{% endblock %}
+    </div>
+  </body>
+</html>

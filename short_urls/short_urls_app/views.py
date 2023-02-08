@@ -1,10 +1,26 @@
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse, reverse_lazy
+from .forms import AuthForm
 from .models import Link, Click
 
 
 def home(request):  # HttpRequest
-    return HttpResponse(f"<h1>Home page</h1>")
+    # Если пользователь не аутентифицирован, то перенаправлять на страницу входа
+    if not request.user.is_authenticated:
+        return HttpResponseRedirect(reverse('app_login'))
+    # суперпользователь, то ему можно всё и показывать всё
+    if request.user.is_superuser:
+        template = 'index.html'
+        context = {
+            'user_name': request.user,
+            'group_name': 'None'
+        }
+        return render(request, template, context)
+    # иначе все остальные (пользователи без группы не имеют прав и должны обратиться к администратору)
+    else:
+        return HttpResponseRedirect(reverse('not_authorized'))
 
 
 def redirect_handler(request, slug):
@@ -44,3 +60,18 @@ def get_client_ip(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     return ip
+
+
+class AppLoginView(LoginView):
+    """ Страница Login. """
+    template_name = 'app_login.html'
+    form_class = AuthForm
+    success_url = reverse_lazy('home')
+
+    def get_success_url(self):
+        return self.success_url
+
+
+class AppLogoutView(LogoutView):
+    """ Logout - перенаправление на главную страницу. """
+    next_page = reverse_lazy('home')

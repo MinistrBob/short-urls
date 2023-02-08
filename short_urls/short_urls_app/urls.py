@@ -1,9 +1,14 @@
 from django.urls import path, include
-from .views import home, redirect_handler, page_not_found_404, page_not_found_500
+from .views import *
+from short_urls_app.views import *
+from short_urls_app.utils import not_authorized
 
 urlpatterns = [
     path('', home, name='home'),
     path('<slug:slug>', redirect_handler, name='redirect_handler'),
+    path('app/gs-login', AppLoginView.as_view(), name='app_login'),
+    path('app/gs-logout', AppLogoutView.as_view(), name='app_logout'),
+    path('app/not-authorized', not_authorized, name='not_authorized'),
 ]
 
 handler404 = page_not_found_404

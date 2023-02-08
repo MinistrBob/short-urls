@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Личный кабинет</h1>
+<div>
+    <p>Добро пожаловать <b>{{request.user}}</b>.<br>Вы можете выбрать подсистему для работы.</p>
+</div>
+{% endblock %}
