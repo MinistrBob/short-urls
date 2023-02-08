@@ -132,3 +132,4 @@ dmypy.json
 .idea/
 short_urls/short_urls.sqlite3
 short_urls/short_urls/settings.py
+short-urls/short_urls/static/**
