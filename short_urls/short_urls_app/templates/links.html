@@ -2,4 +2,37 @@
 
 {% block content %}
 <h1>Короткие ссылки</h1>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-fymr">short_url</th>
+    <th class="tg-fymr">long_url</th>
+    <th class="tg-fymr">is_enabled</th>
+    <th class="tg-fymr">time_create</th>
+    <th class="tg-1wig">time_update</th>
+  </tr>
+</thead>
+<tbody>
+  {% for l in links %}
+  <tr>
+    <td class="tg-0pky">{{l.short_url}}</td>
+    <td class="tg-0pky">{{l.long_url}}</td>
+    <td class="tg-0pky">{{l.is_enabled}}</td>
+    <td class="tg-0pky">{{l.time_create}}</td>
+    <td class="tg-0lax">{{l.time_update}}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+</table>
 {% endblock %}

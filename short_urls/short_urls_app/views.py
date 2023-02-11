@@ -78,18 +78,22 @@ class AppLogoutView(LogoutView):
 
 
 def links_page(request):
+    links = Link.objects.all()
     template = 'links.html'
     context = {
         'user_name': request.user,
-        'group_name': 'None'
+        'group_name': 'None',
+        'links': links,
     }
     return render(request, template, context)
 
 
 def stat_page(request):
+    stats = Click.objects.all()
     template = 'stat.html'
     context = {
         'user_name': request.user,
-        'group_name': 'None'
+        'group_name': 'None',
+        'stats': stats
     }
     return render(request, template, context)
