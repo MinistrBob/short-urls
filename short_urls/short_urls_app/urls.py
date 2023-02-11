@@ -8,6 +8,7 @@ urlpatterns = [
     path('app/links', links_page, name='links'),
     path('app/stat', stat_page, name='stat'),
     path('<slug:slug>', redirect_handler, name='redirect_handler'),
+    path('app/link/<slug:link_id>', show_link, name='show_link'),
     path('app/login', AppLoginView.as_view(), name='login'),
     path('app/logout', AppLogoutView.as_view(), name='logout'),
     path('app/not-authorized', not_authorized, name='not_authorized'),

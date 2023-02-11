@@ -20,7 +20,8 @@
     <th class="tg-fymr">long_url</th>
     <th class="tg-fymr">is_enabled</th>
     <th class="tg-fymr">time_create</th>
-    <th class="tg-1wig">time_update</th>
+    <th class="tg-fymr">time_update</th>
+    <th class="tg-fymr">SHOW</th>
   </tr>
 </thead>
 <tbody>
@@ -30,7 +31,8 @@
     <td class="tg-0pky">{{l.long_url}}</td>
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create}}</td>
-    <td class="tg-0lax">{{l.time_update}}</td>
+    <td class="tg-0pky">{{l.time_update}}</td>
+    <td class="tg-0pky"><a href="{% url 'show_link' l.pk %}">[edit]</a></td>
   </tr>
   {% endfor %}
 </tbody>

@@ -97,3 +97,7 @@ def stat_page(request):
         'stats': stats
     }
     return render(request, template, context)
+
+
+def show_link(request, link_id):
+    return HttpResponse(f"Отображение link с id={link_id}")
