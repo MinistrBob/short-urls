@@ -32,7 +32,7 @@
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create}}</td>
     <td class="tg-0pky">{{l.time_update}}</td>
-    <td class="tg-0pky"><a href="{% url 'show_link' l.pk %}">[edit]</a></td>
+    <td class="tg-0pky"><a href="{{ l.get_absolute_url }}">[edit]</a></td>
   </tr>
   {% endfor %}
 </tbody>

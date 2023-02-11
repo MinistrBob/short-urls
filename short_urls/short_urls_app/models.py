@@ -13,7 +13,7 @@ class Link(models.Model):
         return self.short_url
 
     def get_absolute_url(self):
-        return reverse('redirect_handler', kwargs={'slug': self.short_url})
+        return reverse('show_link', kwargs={'link_id': self.short_url})
 
 
 class Click(models.Model):
