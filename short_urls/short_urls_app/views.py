@@ -9,7 +9,7 @@ from .models import Link, Click
 def home(request):  # HttpRequest
     # Если пользователь не аутентифицирован, то перенаправлять на страницу входа
     if not request.user.is_authenticated:
-        return HttpResponseRedirect(reverse('app_login'))
+        return HttpResponseRedirect(reverse('login'))
     # суперпользователь, то ему можно всё и показывать всё
     if request.user.is_superuser:
         template = 'index.html'
