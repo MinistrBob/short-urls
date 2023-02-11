@@ -26,7 +26,7 @@
   {% for s in stats %}
   <tr>
     <td class="tg-0pky">{{s.link}}</td>
-    <td class="tg-0pky">{{s.time_create}}</td>
+    <td class="tg-0pky">{{s.time_create|date:"d.m.Y H:i:s"}}</td>
     <td class="tg-0pky">{{s.ip}}</td>
     <td class="tg-0lax">{{s.user_agent}}</td>
   </tr>
