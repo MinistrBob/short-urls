@@ -76,3 +76,20 @@ class AppLogoutView(LogoutView):
     """ Logout - перенаправление на главную страницу. """
     next_page = reverse_lazy('home')
 
+
+def links_page(request):
+    template = 'links.html'
+    context = {
+        'user_name': request.user,
+        'group_name': 'None'
+    }
+    return render(request, template, context)
+
+
+def stat_page(request):
+    template = 'stat.html'
+    context = {
+        'user_name': request.user,
+        'group_name': 'None'
+    }
+    return render(request, template, context)
