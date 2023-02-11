@@ -75,3 +75,4 @@ class AppLoginView(LoginView):
 class AppLogoutView(LogoutView):
     """ Logout - перенаправление на главную страницу. """
     next_page = reverse_lazy('home')
+

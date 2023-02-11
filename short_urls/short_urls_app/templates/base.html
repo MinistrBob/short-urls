@@ -1,17 +1,31 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    {% load static %}
-    <!-- <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/> -->
-    <!-- IE -->
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" /> -->
-    <!-- other browsers -->
-    <link rel="icon" type="image/x-icon" href="{% static 'short_urls_app/images/favicon.ico' %}" />
-  </head>
-  <body>
-    <!-- Content -->
-    <div id="content">
-    {% block content %}NULL{% endblock %}
-    </div>
-  </body>
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <link rel="icon" type="image/x-icon" href="{% static 'short_urls_app/images/favicon.ico' %}"/>
+  <style type="text/css">
+    ul {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+
+</head>
+<body>
+<!-- Menu -->
+<div id="menu">
+  {% block menu %}
+  <ul style="list-style-type: none; display: inline-block; width: auto;">
+    <li style="list-style-type: none; display: inline-block; width: auto;"><a href="/">Главная</a></li>
+    <li style="list-style-type: none; display: inline-block; width: auto;"><a href="app/links">Links</a></li>
+    <li style="list-style-type: none; display: inline-block; width: auto;"><a href="app/stat">Статистика</a></li>
+  </ul>
+  {% endblock %}
+</div>
+<!-- Content -->
+<div id="content">
+  {% block content %}NULL{% endblock %}
+</div>
+</body>
 </html>
