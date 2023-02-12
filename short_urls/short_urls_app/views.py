@@ -1,7 +1,10 @@
+# TODO: Login\Logout
+
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
-from django.shortcuts import redirect, render
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
+from django.utils.crypto import get_random_string
 from .forms import AuthForm
 from .models import Link, Click
 
@@ -77,10 +80,10 @@ class AppLogoutView(LogoutView):
     next_page = reverse_lazy('home')
 
 
-def links_page(request):
+def links_list(request):
     # links = Link.objects.all()
     links = Link.objects.filter(is_enabled=True)
-    template = 'links.html'
+    template = 'links_list.html'
     context = {
         'user_name': request.user,
         'group_name': 'None',
@@ -100,5 +103,21 @@ def stat_page(request):
     return render(request, template, context)
 
 
-def show_link(request, link_id):
-    return HttpResponse(f"Отображение link с id={link_id}")
+def link_edit(request, link_id):
+    link = get_object_or_404(Link, short_url=link_id)
+    context = {
+        'link': link,
+    }
+    return render(request, 'link_edit.html', context=context)
+
+
+def link_create(request):
+    return HttpResponse(f"link-create")
+
+
+def link_del(request, link_id):
+    # link = get_object_or_404(Link, pk=link_id)
+    link = Link.objects.get(pk=link_id)
+    link.delete()
+    link.save()
+    return HttpResponse(f"link {link_id} deleted")

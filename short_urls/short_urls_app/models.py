@@ -3,7 +3,7 @@ from django.urls import reverse
 
 
 class Link(models.Model):
-    short_url = models.SlugField(max_length=80, primary_key=True)
+    short_url = models.SlugField(max_length=80, db_index=True, primary_key=True)
     is_enabled = models.BooleanField(default=True)
     long_url = models.CharField(max_length=65535)
     time_create = models.DateTimeField(auto_now_add=True)
@@ -13,9 +13,9 @@ class Link(models.Model):
         return self.short_url
 
     def get_absolute_url(self):
-        return reverse('show_link', kwargs={'link_id': self.short_url})
+        return reverse('link_edit', kwargs={'link_id': self.short_url})
 
-    #class Meta:
+    # class Meta:
     #    verbose_name = 'Short URLs'
     #    verbose_name_plural = 'Short URLs'
 
