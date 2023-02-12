@@ -78,7 +78,8 @@ class AppLogoutView(LogoutView):
 
 
 def links_page(request):
-    links = Link.objects.all()
+    # links = Link.objects.all()
+    links = Link.objects.filter(is_enabled=True)
     template = 'links.html'
     context = {
         'user_name': request.user,

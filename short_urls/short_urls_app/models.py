@@ -15,6 +15,10 @@ class Link(models.Model):
     def get_absolute_url(self):
         return reverse('show_link', kwargs={'link_id': self.short_url})
 
+    #class Meta:
+    #    verbose_name = 'Short URLs'
+    #    verbose_name_plural = 'Short URLs'
+
 
 class Click(models.Model):
     time_create = models.DateTimeField(auto_now_add=True)
