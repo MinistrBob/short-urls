@@ -1,5 +1,5 @@
 # TODO: Login\Logout
-
+# TODO: В readme.md ошибка при входе пользователя demo он получается как неавторизованный пользователь.
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
