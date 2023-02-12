@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
 from django.utils.crypto import get_random_string
-from .forms import AuthForm
+from .forms import *
 from .models import Link, Click
 
 
@@ -112,7 +112,18 @@ def link_edit(request, link_id):
 
 
 def link_create(request):
-    return HttpResponse(f"link-create")
+    if request.method == 'POST':
+        form = AddLinkForm(request.POST)
+        if form.is_valid():
+            #print(form.cleaned_data)
+            try:
+                Link.objects.create(**form.cleaned_data)
+                return redirect('home')
+            except:
+                form.add_error(None, 'Ошибка создания короткой ссылки. Возможно что такая короткая ссылка уже есть.')
+    else:
+        form = AddLinkForm()
+    return render(request, 'link_create.html', {'form': form})
 
 
 def link_del(request, link_id):
