@@ -118,7 +118,7 @@ def link_create(request):
             #print(form.cleaned_data)
             try:
                 Link.objects.create(**form.cleaned_data)
-                return redirect('home')
+                return redirect('links_list')
             except:
                 form.add_error(None, 'Ошибка создания короткой ссылки. Возможно что такая короткая ссылка уже есть.')
     else:
@@ -127,8 +127,6 @@ def link_create(request):
 
 
 def link_del(request, link_id):
-    # link = get_object_or_404(Link, pk=link_id)
-    link = Link.objects.get(pk=link_id)
+    link = get_object_or_404(Link, pk=link_id)
     link.delete()
-    link.save()
-    return HttpResponse(f"link {link_id} deleted")
+    return redirect('links_list')
