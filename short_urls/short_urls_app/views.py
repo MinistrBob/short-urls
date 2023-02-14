@@ -85,8 +85,7 @@ def links_list(request):
     links = Link.objects.filter(is_enabled=True)
     template = 'links_list.html'
     context = {
-        'user_name': request.user,
-        'group_name': 'None',
+        'request': request,
         'links': links,
     }
     return render(request, template, context)
@@ -130,3 +129,24 @@ def link_del(request, link_id):
     link = get_object_or_404(Link, pk=link_id)
     link.delete()
     return redirect('links_list')
+
+
+# how to autorize only manager group users and superuser
+def login(request):
+    if request.method == 'POST':
+        form = AuthForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('home')
+                else:
+                    return HttpResponse('Disabled account')
+            else:
+                return HttpResponse('Invalid login')
+    else:
+        form = AuthForm()
+    return render(request, 'login.html', {'form': form})

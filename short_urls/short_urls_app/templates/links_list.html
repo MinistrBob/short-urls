@@ -29,7 +29,7 @@
 <tbody>
   {% for l in links %}
   <tr>
-    <td class="tg-0pky">{{l.short_url}}</td>
+    <td class="tg-0pky"><a href="{{ request.host }}/{{l.short_url}}">{{l.short_url}}</a></td>
     <td class="tg-0pky">{{l.long_url}}</td>
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create|date:"d.m.Y H:i:s"}}</td>
