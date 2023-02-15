@@ -15,14 +15,11 @@ class AuthForm(AuthenticationForm, forms.ModelForm):
             self.fields[field].widget.attrs['class'] = "form-control"
 
 
-class AddLinkForm(forms.Form):
-    short_url = forms.SlugField(max_length=80,
-                                label="Короткая ссылка",
-                                widget=forms.TextInput(attrs={'class': 'form-input'}))
-    is_enabled = forms.BooleanField(label="Включено?",
-                                    help_text='Программа делает перенаправление только для включенных ссылок',
-                                    required=False,
-                                    initial=True)
-    long_url = forms.CharField(max_length=65535,
-                               widget=forms.Textarea(attrs={'cols': 60, 'rows': 10}),
-                               label="Длинная ссылка")
+class AddLinkForm(forms.ModelForm):
+    class Meta:
+        model = Link
+        fields = ['short_url', 'is_enabled', 'long_url']
+        widgets = {
+            'short_url': forms.TextInput(attrs={'class': 'form-input'}),
+            'long_url': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
+        }

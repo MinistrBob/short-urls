@@ -115,11 +115,8 @@ def link_create(request):
         form = AddLinkForm(request.POST)
         if form.is_valid():
             #print(form.cleaned_data)
-            try:
-                Link.objects.create(**form.cleaned_data)
-                return redirect('links_list')
-            except:
-                form.add_error(None, 'Ошибка создания короткой ссылки. Возможно что такая короткая ссылка уже есть.')
+            form.save()
+            return redirect('links_list')
     else:
         form = AddLinkForm()
     return render(request, 'link_create.html', {'form': form})
