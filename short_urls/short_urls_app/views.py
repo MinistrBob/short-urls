@@ -1,11 +1,12 @@
 # TODO: Login\Logout
 # TODO: В readme.md ошибка при входе пользователя demo он получается как неавторизованный пользователь.
+from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
 from django.utils.crypto import get_random_string
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .forms import *
 from .models import Link, Click
 
@@ -103,18 +104,24 @@ def link_edit(request, link_id):
     return render(request, 'link_edit.html', context=context)
 
 
-# sort list bubble
-
 class LinkCreate(CreateView):
     form_class = AddLinkForm
     template_name = 'link_create.html'
     success_url = reverse_lazy('links_list')
 
 
-def link_del(request, link_id):
-    link = get_object_or_404(Link, pk=link_id)
-    link.delete()
-    return redirect('links_list')
+
+class LinkDelete(DeleteView):
+    """ (Класс DeleteView в отличие от функции работает методом POST!!!) """
+    model = Link
+    template_name = 'link_delete.html'
+    success_url = reverse_lazy('links_list')
+    success_message = "Короткая ссылка удалена"
+    slug_field = 'short_url'
+
+    def post(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super().post(request)
 
 
 class StatList(ListView):
