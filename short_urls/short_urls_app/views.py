@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
 from django.utils.crypto import get_random_string
+from django.views.generic import ListView, DetailView, CreateView
 from .forms import *
 from .models import Link, Click
 
@@ -80,26 +81,18 @@ class AppLogoutView(LogoutView):
     next_page = reverse_lazy('home')
 
 
-def links_list(request):
-    # links = Link.objects.all()
-    links = Link.objects.filter(is_enabled=True)
-    template = 'links_list.html'
-    context = {
-        'request': request,
-        'links': links,
-    }
-    return render(request, template, context)
+class LinksList(ListView):
+    model = Link
+    template_name = 'links_list.html'
+    context_object_name = 'links'
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['request'] = self.request
+        return context
 
-def stat_page(request):
-    stats = Click.objects.all()
-    template = 'stat.html'
-    context = {
-        'user_name': request.user,
-        'group_name': 'None',
-        'stats': stats
-    }
-    return render(request, template, context)
+    def get_queryset(self):
+        return Link.objects.filter(is_enabled=True)
 
 
 def link_edit(request, link_id):
@@ -110,22 +103,24 @@ def link_edit(request, link_id):
     return render(request, 'link_edit.html', context=context)
 
 
-def link_create(request):
-    if request.method == 'POST':
-        form = AddLinkForm(request.POST)
-        if form.is_valid():
-            #print(form.cleaned_data)
-            form.save()
-            return redirect('links_list')
-    else:
-        form = AddLinkForm()
-    return render(request, 'link_create.html', {'form': form})
+# sort list bubble
+
+class LinkCreate(CreateView):
+    form_class = AddLinkForm
+    template_name = 'link_create.html'
+    success_url = reverse_lazy('links_list')
 
 
 def link_del(request, link_id):
     link = get_object_or_404(Link, pk=link_id)
     link.delete()
     return redirect('links_list')
+
+
+class StatList(ListView):
+    model = Click
+    template_name = 'stat.html'
+    context_object_name = 'stats'
 
 
 # how to autorize only manager group users and superuser
