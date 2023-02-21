@@ -1,8 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Короткие ссылки</h1>
-<div><a href="{% url 'link_create' %}">[Создать новую короткую ссылку]</a><p></p></div>
+{% if edit %}
+<h1>Редактирование короткой ссылки</h1>
+<p><a href="{% url 'links_list' %}">Вернуться назад</a></p>
+<form id="edit_form" method="post">
+  {% csrf_token %}
+  <div class="form-error">{{ form.non_field_errors }}</div>
+
+  {% for f in form %}
+  <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+  <div class="form-error">{{ f.errors }}</div>
+  {% endfor %}
+  <button type="submit">Сохранить</button>
+</form>
+{% else %}
+<h1>Список коротких ссылок</h1>
+<div><a href="{% url 'link_create' %}">[Создать новую короткую ссылку]</a>
+  <p></p></div>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;}
 .tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
@@ -13,9 +28,10 @@
 .tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 .tg .tg-0lax{text-align:left;vertical-align:top}
+
 </style>
 <table class="tg">
-<thead>
+  <thead>
   <tr>
     <th class="tg-fymr">short_url</th>
     <th class="tg-fymr">long_url</th>
@@ -25,8 +41,8 @@
     <th class="tg-fymr">EDIT</th>
     <th class="tg-fymr">DEL</th>
   </tr>
-</thead>
-<tbody>
+  </thead>
+  <tbody>
   {% for l in links %}
   <tr>
     <td class="tg-0pky"><a href="{{ request.host }}/{{l.short_url}}">{{l.short_url}}</a></td>
@@ -34,10 +50,11 @@
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create|date:"d.m.Y H:i:s"}}</td>
     <td class="tg-0pky">{{l.time_update|date:"d.m.Y H:i:s"}}</td>
-    <td class="tg-0pky"><a href="{{ l.get_absolute_url }}">[edit]</a></td>
+    <td class="tg-0pky"><a href="{% url 'link_edit' l.short_url %}"">[edit]</a></td>
     <td class="tg-0pky"><a href="{% url 'link_del' l.short_url %}">[del]</a></td>
   </tr>
   {% endfor %}
-</tbody>
+  </tbody>
 </table>
+{% endif %}
 {% endblock %}

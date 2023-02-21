@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
 from django.utils.crypto import get_random_string
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import *
 from .models import Link, Click
 
@@ -96,19 +96,26 @@ class LinksList(ListView):
         return Link.objects.filter(is_enabled=True)
 
 
-def link_edit(request, link_id):
-    link = get_object_or_404(Link, short_url=link_id)
-    context = {
-        'link': link,
-    }
-    return render(request, 'link_edit.html', context=context)
-
-
 class LinkCreate(CreateView):
     form_class = AddLinkForm
     template_name = 'link_create.html'
     success_url = reverse_lazy('links_list')
 
+
+class LinkEdit(UpdateView):
+    model = Link
+    template_name = 'links_list.html'
+    form_class = EditLinkForm
+    success_url = reverse_lazy('links_list')
+    success_message = "Коротка ссылка изменена"
+    slug_field = 'short_url'
+
+    def get_context_data(self, **kwargs):
+        kwargs['edit'] = True
+        return super().get_context_data(**kwargs)
+
+    def form_valid(self, form_class):
+        return super(LinkEdit, self).form_valid(form_class)
 
 
 class LinkDelete(DeleteView):
