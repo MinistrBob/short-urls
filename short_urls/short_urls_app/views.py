@@ -93,7 +93,8 @@ class LinksList(ListView):
         return context
 
     def get_queryset(self):
-        return Link.objects.filter(is_enabled=True)
+        # return Link.objects.filter(is_enabled=True)
+        return Link.objects.all()
 
 
 class LinkCreate(CreateView):
