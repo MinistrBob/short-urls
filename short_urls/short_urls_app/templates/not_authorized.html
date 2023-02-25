@@ -2,16 +2,32 @@
 
 {% block title %}Not authorized user{% endblock %}
 
-<!--{% block menu_index %}{% endblock %}-->
-<!--{% block menu_gs %}{% endblock %}-->
-<!--{% block menu_team %}{% endblock %}-->
+{% block mainmenu %}
+<div class="header">
+  <ul id="mainmenu" class="mainmenu">
+    <li class="logo">
+      <a href="{% url 'home' %}">
+        <div class="logo"></div>
+      </a>
+    </li>
+    {% if request.user.is_authenticated %}
+    <li class="last"><a href="{% url 'logout' %}">Выход</a></li>
+    <li class="last"><a>({{user_name}}:{{group_name}})</a></li>
+    {% else %}
+    <li class="last"><a href="{% url 'login' %}">Вход</a></li>
+    {% endif %}
+  </ul>
+  <div class="clear"></div>
+</div>
+{% endblock mainmenu %}
 
 {% block content %}
 <div>
-    <h1>Вы не авторизованы.</h1>
-    <div>
-        <p>Пользователь <b>{{request.user}}</b> не авторизован.<br>
-           Пожалуйста обратитесь к администратору, чтобы он включил вас в необходимую группу.</p>
-    </div>
+  <h1>Вы не авторизованы.</h1>
+  <div>
+    <p>Пользователь <b>{{user_name}}</b> из группы <b>{{group_name}}</b> не авторизован.<br>
+      Т.е. у вас нет прав работать в этом приложении.<br>
+      Пожалуйста, обратитесь к администратору, чтобы он предоставил вам доступ.</p>
+  </div>
 </div>
 {% endblock %}

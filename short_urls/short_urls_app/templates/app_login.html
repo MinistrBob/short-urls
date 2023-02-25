@@ -3,14 +3,19 @@
 {% block title %}Login{% endblock %}
 <!-- {% block menu %}{% endblock %} -->
 {% block content %}
-<div">
-    <h1">Введите логин для входа.</h1>
-    <div>
-        <form id="login_form" method="post">
-            {% csrf_token %}
-            {{form}}
-        </form>
-        <button form="login_form" type="submit">Войти</button>
-    </div>
+<div>
+  <h1>Введите логин для входа</h1>
+  <div>
+    <form id="login_form" method="post">
+      {% csrf_token %}
+      <div class="form-error">{{ form.non_field_errors }}</div>
+      {% for f in form %}
+      <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+      <div class="form-error">{{ f.errors }}</div>
+      {% endfor %}
+      <button form="login_form" type="submit">Войти</button>
+    </form>
+
+  </div>
 </div>
 {% endblock %}

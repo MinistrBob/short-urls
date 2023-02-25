@@ -1,3 +1,15 @@
+from django.shortcuts import render
+from django.contrib.auth.models import Group
+
+
+class ContextMixin:
+    def get_user_context(self, **kwargs):
+        context = kwargs
+        context['user_name'] = self.request.user
+        context['group_name'] = get_groups(self.request)
+        return context
+
+
 class SuccessMessageMixin:
     """Выводит сообщения об успешных действиях."""
 
@@ -21,22 +33,26 @@ def is_superuser(request):
         return False
 
 
-def get_group(request):
-    """ Проверяет является ли пользователь superuser, тогда ему всё разрешено, или в каких группах состоит пользователь.
+def get_groups(request) -> str:
+    """Функция проверяет является ли пользователь superuser,
+    если нет, тогда возвращает список групп в которых состоит пользователь в виде строки.
     :param request:
-    :return: Либо 'superuser' либо список групп. """
+    :return: Либо 'superuser' либо список групп (str). """
     if is_superuser(request):
         return 'superuser'
     else:
         query_set = Group.objects.filter(user=request.user)
-        list_group = ''
-        for group in query_set:
-            list_group += group.name
-        return list_group
+        if query_set:
+            list_group = ''
+            for group in query_set:
+                list_group += group.name
+            return list_group
+        else:
+            return 'None'
 
 
 def user_belongs_to_group(request, group_name):
-    """ Проверяет входит ли пользователь в группу. """
+    """Функция проверяет входит ли пользователь в указанную группу."""
     # query_set = Group.objects.filter(user=request.user)
     if request.user.groups.filter(name=group_name).exists():
         return True
@@ -46,12 +62,12 @@ def user_belongs_to_group(request, group_name):
 
 def not_authorized(request):
     """ Страница для неавторизованных пользователей, которые не включены ни в какую группу,
-    поэтому не имеют гикаких прав и должны обратиться к администратору.
+    поэтому не имеют никаких прав и должны обратиться к администратору.
     :param request:
     :return: """
     template = 'not_authorized.html'
     context = {
-        'user_name': 'None',
-        'group_name': 'None'
+        'user_name': request.user,
+        'group_name': get_groups(request),
     }
     return render(request, template, context=context)

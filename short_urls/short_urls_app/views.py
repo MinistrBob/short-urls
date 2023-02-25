@@ -8,19 +8,21 @@ from django.urls import reverse, reverse_lazy
 from django.utils.crypto import get_random_string
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from .forms import *
+from .utils import get_groups
 from .models import Link, Click
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def home(request):  # HttpRequest
     # Если пользователь не аутентифицирован, то перенаправлять на страницу входа
     if not request.user.is_authenticated:
         return HttpResponseRedirect(reverse('login'))
-    # суперпользователь, то ему можно всё и показывать всё
-    if request.user.is_superuser:
+    # На работу в приложении имеют права: суперпользователь и члены группы managers
+    if request.user.is_superuser or request.user.groups.filter(name='managers').exists():
         template = 'index.html'
         context = {
             'user_name': request.user,
-            'group_name': 'None'
+            'group_name': get_groups(request),
         }
         return render(request, template, context)
     # иначе все остальные (пользователи без группы не имеют прав и должны обратиться к администратору)
@@ -70,7 +72,7 @@ def get_client_ip(request):
 class AppLoginView(LoginView):
     """ Страница Login. """
     template_name = 'app_login.html'
-    form_class = AuthForm
+    form_class = LoginUserForm
     success_url = reverse_lazy('home')
 
     def get_success_url(self):
@@ -79,18 +81,21 @@ class AppLoginView(LoginView):
 
 class AppLogoutView(LogoutView):
     """ Logout - перенаправление на главную страницу. """
-    next_page = reverse_lazy('home')
+    next_page = reverse_lazy('login')
 
 
-class LinksList(ListView):
+class LinksList(LoginRequiredMixin, ListView):
     model = Link
     template_name = 'links_list.html'
     context_object_name = 'links'
-    paginate_by = 5
+    paginate_by = 30
+    login_url = '/app/login'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['request'] = self.request
+        context['user_name'] = self.request.user
+        context['group_name'] = get_groups(self.request)
         return context
 
     def get_queryset(self):
@@ -133,28 +138,15 @@ class LinkDelete(DeleteView):
         return super().post(request)
 
 
-class StatList(ListView):
+class StatList(LoginRequiredMixin, ListView):
     model = Click
     template_name = 'stat.html'
     context_object_name = 'stats'
+    paginate_by = 50
+    login_url = '/app/login'
 
-
-# how to autorize only manager group users and superuser
-def login(request):
-    if request.method == 'POST':
-        form = AuthForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                if user.is_active:
-                    login(request, user)
-                    return redirect('home')
-                else:
-                    return HttpResponse('Disabled account')
-            else:
-                return HttpResponse('Invalid login')
-    else:
-        form = AuthForm()
-    return render(request, 'login.html', {'form': form})
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_name'] = self.request.user
+        context['group_name'] = get_groups(self.request)
+        return context

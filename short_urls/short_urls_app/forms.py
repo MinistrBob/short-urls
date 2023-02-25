@@ -4,15 +4,20 @@ from django.contrib.auth.models import User
 from .models import *
 
 
-class AuthForm(AuthenticationForm, forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('username', 'password')
+# class AuthForm(AuthenticationForm, forms.ModelForm):
+#     class Meta:
+#         model = User
+#         fields = ('username', 'password')
+#
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         for field in self.fields:
+#             self.fields[field].widget.attrs['class'] = "form-control"
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = "form-control"
+
+class LoginUserForm(AuthenticationForm):
+    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 
 class AddLinkForm(forms.ModelForm):
