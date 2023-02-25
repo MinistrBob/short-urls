@@ -15,9 +15,10 @@ class Link(models.Model):
     def get_absolute_url(self):
         return reverse('link_edit', kwargs={'link_id': self.short_url})
 
-    # class Meta:
-    #    verbose_name = 'Short URLs'
-    #    verbose_name_plural = 'Short URLs'
+    class Meta:
+        verbose_name = 'Short URLs'
+        verbose_name_plural = 'Short URLs'
+        ordering = ['short_url']
 
 
 class Click(models.Model):
