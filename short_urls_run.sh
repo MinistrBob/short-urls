@@ -16,7 +16,7 @@ set +o pipefail
 echo -e "\n==> docker pull image"
 docker pull $dh_username/$dh_image_name:latest
 echo -e "\n==> docker run"
-docker run --name $dh_image_name --restart=always --net=nginxproxymanager_default --user 1006:1006 -d -v /home/$dh_image_name/.settings:/app/short_urls/settings.py -v /home/$dh_image_name/short_urls.sqlite3:/app/short_urls.sqlite3 $dh_username/$dh_image_name:latest
+docker run --name $dh_image_name --restart=always --net=gs_network --user 1006:1006 -d -v /home/$dh_image_name/.settings:/app/short_urls/settings.py -v /home/$dh_image_name/short_urls.sqlite3:/app/short_urls.sqlite3 $dh_username/$dh_image_name:latest
 echo -e "\n==> Container info"
 docker ps --filter "name=$dh_image_name"
 echo -e "\n==> Container Image SHA256"
