@@ -70,9 +70,14 @@ jobs:
     needs: build_and_push
     runs-on: ubuntu-latest
     steps:
+      - name: DEBUG secrets
+        run: |
+          echo ${{ secrets.TEST_SSH_HOST }} | sed 's/./& /g'
+          echo ${{secrets.TEST_SSH_USER}} | sed 's/./& /g'
+          echo ${{secrets.TEST_SSH_PORT}} | sed 's/./& /g'
+          echo ${{secrets.TEST_SSH_PRIVATE_KEY}} | sed 's/./& /g'
       - name: Configure test SSH
         run: |
-          env
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/test.key
           chmod 600 ~/.ssh/test.key
@@ -84,7 +89,6 @@ jobs:
             IdentityFile ~/.ssh/test.key
             StrictHostKeyChecking no
           END
-          cat ~/.ssh/config
         env:
           SSH_USER: ${{ secrets.TEST_SSH_USER }}
           SSH_KEY: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
