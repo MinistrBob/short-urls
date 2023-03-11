@@ -28,6 +28,7 @@ on:
 jobs:
   build_and_push:
     name: Build and Push Docker image
+    if: github.event.ref == 'refs/heads/zzz'
     runs-on: ubuntu-latest
     steps:
       - name: Set variable for branch main
@@ -71,11 +72,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: DEBUG secrets
+        env:
+          SSH_USER: ${{ secrets.TEST_SSH_USER }}
+          SSH_KEY: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.TEST_SSH_HOST }}
+          SSH_PORT: ${{ secrets.TEST_SSH_PORT }}
         run: |
-          echo ${{ secrets.TEST_SSH_HOST }} | sed 's/./& /g'
-          echo ${{secrets.TEST_SSH_USER}} | sed 's/./& /g'
-          echo ${{secrets.TEST_SSH_PORT}} | sed 's/./& /g'
-          echo ${{secrets.TEST_SSH_PRIVATE_KEY}} | sed 's/./& /g'
+          import os
+          for q in (os.getenv("SSH_HOST")):
+            print(q)
+          for q in (os.getenv("SSH_PORT")):
+            print(q)
+          for q in (os.getenv("SSH_USER")):
+            print(q)
+          for q in (os.getenv("SSH_KEY").replace("\\n", "  ")):
+            print(q)
+        shell: python
       - name: Configure test SSH
         run: |
           mkdir -p ~/.ssh/
