@@ -68,7 +68,7 @@ jobs:
   deploy_to_test:
     name: Deploy to test environment
     if: github.event.ref == 'refs/heads/develop'
-    needs: build_and_push
+    #needs: build_and_push
     runs-on: ubuntu-latest
     steps:
       - name: DEBUG secrets
