@@ -64,6 +64,7 @@ jobs:
     steps:
       - name: Configure test SSH
         run: |
+          env
           mkdir -p ~/.ssh/
           echo "$TEST_SSH_KEY" > ~/.ssh/test.key
           chmod 600 ~/.ssh/test.key
