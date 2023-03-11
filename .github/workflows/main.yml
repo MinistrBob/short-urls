@@ -30,6 +30,14 @@ jobs:
     name: Build and Push Docker image
     runs-on: ubuntu-latest
     steps:
+      - name: Set variable for branch main
+        # if: ${{ contains(['master', 'main'], github.ref) }}
+        if: github.event.ref == 'refs/heads/main'
+        run: echo "LABEL=latest" >> $GITHUB_ENV && echo "Variable set LABEL=latest."
+      - name: Set variable for branch develop
+        # if: ${{ contains(['master', 'main'], github.ref) }}
+        if: github.event.ref == 'refs/heads/develop'
+        run: echo "LABEL=test" >> $GITHUB_ENV && echo "Variable set LABEL=test."
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -52,9 +60,9 @@ jobs:
           # tags: devasteam/deva-crm:latest
           # pull: true
       - name: Build the latest Docker image
-        run: docker build . --cache-from ministrbob/short-urls:latest --build-arg BUILDKIT_INLINE_CACHE=1 --file Dockerfile --tag ministrbob/short-urls:latest
+        run: docker build . --cache-from ministrbob/short-urls:$LABEL --build-arg BUILDKIT_INLINE_CACHE=1 --file Dockerfile --tag ministrbob/short-urls:$LABEL
       - name: Push the latest Docker image
-        run: docker push ministrbob/short-urls:latest
+        run: docker push ministrbob/short-urls:$LABEL
 
   deploy_to_test:
     name: Deploy to test environment
@@ -66,13 +74,13 @@ jobs:
         run: |
           env
           mkdir -p ~/.ssh/
-          echo "$TEST_SSH_KEY" > ~/.ssh/test.key
+          echo "$SSH_KEY" > ~/.ssh/test.key
           chmod 600 ~/.ssh/test.key
           cat >>~/.ssh/config <<END
           Host test
-            HostName $TEST_SSH_HOST
-            Port $TEST_SSH_PORT
-            User $TEST_SSH_USER
+            HostName $SSH_HOST
+            Port $SSH_PORT
+            User $SSH_USER
             IdentityFile ~/.ssh/test.key
             StrictHostKeyChecking no
           END
