@@ -114,11 +114,11 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: sh_file
-      # result = /home/runner/work/short-urls/short-urls
-      - name: pwd
-        run: pwd
-      - name: ls -al
-        run: ls -al
+# result pwd = /home/runner/work/short-urls/short-urls
+#      - name: pwd
+#        run: pwd
+#      - name: ls -al
+#        run: ls -al
 #      - name: Test ssh
 #        run: ssh -vvv test
       - name: Copy short_urls_run.sh
@@ -150,12 +150,18 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
-      # result = /home/runner/work/short-urls/short-urls
-      # - name: pwd
-        # run: pwd
-      # - name: ls -al
-        # run: ls -al
+      - name: Download short_urls_run.sh
+        uses: actions/download-artifact@v3
+        with:
+          name: sh_file
+# result pwd = /home/runner/work/short-urls/short-urls
+#      - name: pwd
+#        run: pwd
+#      - name: ls -al
+#        run: ls -al
+#      - name: Test ssh
+#        run: ssh -vvv test
       - name: Copy short_urls_run.sh
-        run: scp /home/runner/work/short-urls/short-urls/short_urls_run.sh prod:/home/dr/short_urls_run.sh
+        run: scp short_urls_run.sh prod:/home/dr/short_urls_run.sh
       - name: Execute short_urls_run.sh
         run: ssh prod '/home/dr/short_urls_run.sh'
