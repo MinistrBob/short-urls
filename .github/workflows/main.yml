@@ -1,12 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: publish-release
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: ['main']
+    branches: ['main', 'develop']
     paths:
       - 'short_urls/**'
       - '.github/workflows/*.yml'
@@ -16,7 +12,7 @@ on:
       - 'requirements.txt'
       - 'short_urls_run.sh'
   pull_request:
-    branches: ['main']
+    branches: ['main', 'develop']
     paths:
       - 'short_urls/**'
       - '.github/workflows/*.yml'
@@ -25,18 +21,14 @@ on:
       - '.gitignore'
       - 'requirements.txt'
       - 'short_urls_run.sh'
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "push_to_registries"
-  push_to_registries:
+  build_and_push:
     name: Build and Push Docker image
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out the repo
@@ -60,10 +52,49 @@ jobs:
           # tags: devasteam/deva-crm:latest
           # pull: true
       - name: Build the latest Docker image
-        run: docker build . --pull --file Dockerfile --tag ministrbob/short-urls:latest
+        run: docker build . --cache-from ministrbob/short-urls:latest --build-arg BUILDKIT_INLINE_CACHE=1 --file Dockerfile --tag ministrbob/short-urls:latest
       - name: Push the latest Docker image
         run: docker push ministrbob/short-urls:latest
-      - name: Configure SSH
+
+  deploy_to_test:
+    name: Deploy to test environment
+    if: github.event.ref == 'refs/heads/develop'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure test SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$TEST_SSH_KEY" > ~/.ssh/test.key
+          chmod 600 ~/.ssh/test.key
+          cat >>~/.ssh/config <<END
+          Host test
+            HostName $TEST_SSH_HOST
+            Port $TEST_SSH_PORT
+            User $TEST_SSH_USER
+            IdentityFile ~/.ssh/test.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.TEST_SSH_USER }}
+          SSH_KEY: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.TEST_SSH_HOST }}
+          SSH_PORT: ${{ secrets.TEST_SSH_PORT }}
+      # result = /home/runner/work/short-urls/short-urls
+      # - name: pwd
+        # run: pwd
+      # - name: ls -al
+        # run: ls -al
+      - name: Copy short_urls_run.sh
+        run: scp /home/runner/work/short-urls/short-urls/short_urls_run.sh test:/home/dr/short_urls_run.sh
+      - name: Execute short_urls_run.sh
+        run: ssh test '/home/dr/short_urls_run.sh'
+
+  deploy_to_prod:
+    name: Deploy to prod environment
+    if: github.event.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Configure prod SSH
         run: |
           mkdir -p ~/.ssh/
           echo "$SSH_KEY" > ~/.ssh/prod.key
@@ -81,15 +112,12 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
-
       # result = /home/runner/work/short-urls/short-urls
       # - name: pwd
         # run: pwd
       # - name: ls -al
         # run: ls -al
-
-      - name: Copy run sh
+      - name: Copy short_urls_run.sh
         run: scp /home/runner/work/short-urls/short-urls/short_urls_run.sh prod:/home/dr/short_urls_run.sh
-
-      - name: Run sh
+      - name: Execute short_urls_run.sh
         run: ssh prod '/home/dr/short_urls_run.sh'
