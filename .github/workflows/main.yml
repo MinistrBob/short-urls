@@ -106,10 +106,10 @@ jobs:
           SSH_HOST: ${{ secrets.TEST_SSH_HOST }}
           SSH_PORT: ${{ secrets.TEST_SSH_PORT }}
       # result = /home/runner/work/short-urls/short-urls
-      # - name: pwd
-        # run: pwd
-      # - name: ls -al
-        # run: ls -al
+      - name: pwd
+        run: pwd
+      - name: ls -al
+        run: ls -al
 #      - name: Test ssh
 #        run: ssh -vvv test
       - name: Copy short_urls_run.sh
