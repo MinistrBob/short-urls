@@ -95,6 +95,8 @@ jobs:
         # run: pwd
       # - name: ls -al
         # run: ls -al
+      - name: Test ssh
+        run: ssh -vvv test
       - name: Copy short_urls_run.sh
         run: scp /home/runner/work/short-urls/short-urls/short_urls_run.sh test:/home/dr/short_urls_run.sh
       - name: Execute short_urls_run.sh
