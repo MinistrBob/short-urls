@@ -63,6 +63,11 @@ jobs:
         run: docker build . --cache-from ministrbob/short-urls:$LABEL --build-arg BUILDKIT_INLINE_CACHE=1 --file Dockerfile --tag ministrbob/short-urls:$LABEL
       - name: Push the latest Docker image
         run: docker push ministrbob/short-urls:$LABEL
+      - name: Upload short_urls_run.sh
+        uses: actions/upload-artifact@v3
+        with:
+          name: sh_file
+          path: short_urls_run.sh
 
   deploy_to_test:
     name: Deploy to test environment
@@ -105,6 +110,10 @@ jobs:
           SSH_KEY: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.TEST_SSH_HOST }}
           SSH_PORT: ${{ secrets.TEST_SSH_PORT }}
+      - name: Download short_urls_run.sh
+        uses: actions/download-artifact@v3
+        with:
+          name: sh_file
       # result = /home/runner/work/short-urls/short-urls
       - name: pwd
         run: pwd
@@ -113,7 +122,7 @@ jobs:
 #      - name: Test ssh
 #        run: ssh -vvv test
       - name: Copy short_urls_run.sh
-        run: scp /home/runner/work/short-urls/short-urls/short_urls_run.sh test:/home/dr/short_urls_run.sh
+        run: scp short_urls_run.sh test:/home/dr/short_urls_run.sh
       - name: Execute short_urls_run.sh
         run: ssh test '/home/dr/short_urls_run.sh'
 
