@@ -39,6 +39,10 @@ class EditLinkForm(forms.ModelForm):
     class Meta:
         model = Link
         fields = '__all__'
+        widgets = {
+            'short_url': forms.TextInput(attrs={'class': 'form-input'}),
+            'long_url': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
