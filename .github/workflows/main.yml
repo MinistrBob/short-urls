@@ -59,6 +59,7 @@ jobs:
   deploy_to_test:
     name: Deploy to test environment
     if: github.event.ref == 'refs/heads/develop'
+    needs: build_and_push
     runs-on: ubuntu-latest
     steps:
       - name: Configure test SSH
@@ -74,6 +75,7 @@ jobs:
             IdentityFile ~/.ssh/test.key
             StrictHostKeyChecking no
           END
+          cat ~/.ssh/config
         env:
           SSH_USER: ${{ secrets.TEST_SSH_USER }}
           SSH_KEY: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
@@ -92,6 +94,7 @@ jobs:
   deploy_to_prod:
     name: Deploy to prod environment
     if: github.event.ref == 'refs/heads/main'
+    needs: build_and_push
     runs-on: ubuntu-latest
     steps:
       - name: Configure prod SSH
