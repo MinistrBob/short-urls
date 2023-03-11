@@ -1,5 +1,5 @@
-# TODO: Login\Logout
-# TODO: В readme.md ошибка при входе пользователя demo он получается как неавторизованный пользователь.
+# TODO: Добавить в Link creater, editor (те кто создал ссылку и последний редактор)
+# TODO: Добавить шаблоны ссылок.
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
