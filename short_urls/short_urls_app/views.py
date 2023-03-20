@@ -1,5 +1,7 @@
-# TODO: Добавить в Link creater, editor (те кто создал ссылку и последний редактор)
+# TODO: Добавить в Link creater, editor (те кто создал ссылку и последний редактор).
 # TODO: Добавить шаблоны ссылок.
+# TODO: Имя и группа отображаются не на всех страницах.
+# TODO: При заходе на s.gs.org перебрасывать на основной сайт школы.   /app/home
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
