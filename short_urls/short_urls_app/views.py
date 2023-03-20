@@ -102,7 +102,7 @@ class LinksList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # return Link.objects.filter(is_enabled=True)
-        return Link.objects.all()
+        return Link.objects.all().order_by('-time_update')
 
 
 class LinkCreate(CreateView):
