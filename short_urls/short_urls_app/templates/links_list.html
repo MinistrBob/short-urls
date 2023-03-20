@@ -33,25 +33,25 @@
 <table class="tg">
   <thead>
   <tr>
+    <th class="tg-fymr">EDIT</th>
+    <th class="tg-fymr">DEL</th>
     <th class="tg-fymr">short_url</th>
     <th class="tg-fymr">long_url</th>
     <th class="tg-fymr">is_enabled</th>
     <th class="tg-fymr">time_create</th>
     <th class="tg-fymr">time_update</th>
-    <th class="tg-fymr">EDIT</th>
-    <th class="tg-fymr">DEL</th>
   </tr>
   </thead>
   <tbody>
   {% for l in links %}
   <tr>
+    <td class="tg-0pky"><a href="{% url 'link_edit' l.short_url %}"">[edit]</a></td>
+    <td class="tg-0pky"><a href="{% url 'link_del' l.short_url %}">[del]</a></td>
     <td class="tg-0pky"><a href="{{ request.host }}/{{l.short_url}}">{{l.short_url}}</a></td>
     <td class="tg-0pky">{{l.long_url}}</td>
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create|date:"d.m.Y H:i:s"}}</td>
     <td class="tg-0pky">{{l.time_update|date:"d.m.Y H:i:s"}}</td>
-    <td class="tg-0pky"><a href="{% url 'link_edit' l.short_url %}"">[edit]</a></td>
-    <td class="tg-0pky"><a href="{% url 'link_del' l.short_url %}">[del]</a></td>
   </tr>
   {% endfor %}
   </tbody>
