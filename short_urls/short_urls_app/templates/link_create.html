@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Создание новой короткой ссылки</h1>
+<p><a href="{% url 'links_list' %}">[Вернуться назад]</a></p>
 <form action="{% url 'link_create' %}" method="post">
     {% csrf_token %}
 
