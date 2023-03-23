@@ -15,7 +15,7 @@ from .utils import get_groups
 from .models import Link, Click
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789"
+SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-_"
 
 
 def get_slug():
