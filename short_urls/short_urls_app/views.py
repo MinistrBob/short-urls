@@ -113,7 +113,6 @@ class LinksList(LoginRequiredMixin, ListView):
 
 
 class LinkCreate(CreateView):
-    initial = {'short_url': get_slug()}
     form_class = AddLinkForm
     template_name = 'link_create.html'
     success_url = reverse_lazy('links_list')
@@ -124,6 +123,9 @@ class LinkCreate(CreateView):
         context['group_name'] = get_groups(self.request)
         return context
 
+    def get_initial(self):
+        init_data = {'short_url': get_slug()}
+        return init_data
 
 class LinkEdit(UpdateView):
     model = Link
