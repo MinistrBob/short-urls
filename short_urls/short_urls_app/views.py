@@ -117,6 +117,10 @@ class LinkCreate(CreateView):
     template_name = 'link_create.html'
     success_url = reverse_lazy('links_list')
 
+    # def post(self, request):
+    #     print(request.POST)
+    #     return HttpResponse('Thank you for your message!')
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['user_name'] = self.request.user
@@ -126,6 +130,7 @@ class LinkCreate(CreateView):
     def get_initial(self):
         init_data = {'short_url': get_slug()}
         return init_data
+
 
 class LinkEdit(UpdateView):
     model = Link

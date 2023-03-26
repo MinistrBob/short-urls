@@ -1,19 +1,51 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block head_scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock head_scripts %}
 
 {% block content %}
 <h1>Создание новой короткой ссылки</h1>
 <p><a href="{% url 'links_list' %}">[Вернуться назад]</a></p>
 <form action="{% url 'link_create' %}" method="post">
     {% csrf_token %}
-
+    <div style="border:1px solid black;">
+    <p>Вы можете выбрать шаблон для генерации ссылки</p>
+    <p><label for="id_template">Шаблон:</label>
+        <select id="id_template" >
+<!--        <option disabled>Выберите шаблон</option>-->
+        <option value="1">test1</option>
+        <option value="2">test2</option>
+        </select>
+    </p>
+    <p><label for="id_field1">Поле 1</label>
+        <select id="id_field1" >
+        <option value="1">test1</option>
+        <option value="2">test2</option>
+        </select>
+    </p>
+    <p><label for="id_field2">Поле 2</label>
+        <select id="id_field2" >
+        <option value="1">test1</option>
+        <option value="2">test2</option>
+        </select>
+    </p>
+    </div>
     <div class="form-error">{{ form.non_field_errors }}</div>
-
+    <div>
     {% for f in form %}
         <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
         <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
 
     <button type="submit">Сохранить</button>
-
+    </div>
 </form>
-{% endblock %}
+{% endblock content %}
+
+{% comment %}
+{% block body_scripts %}
+<script src="{% static 'short_urls_app/js/script.js' %}"></script>
+{% endblock body_scripts %}
+{% endcomment %}

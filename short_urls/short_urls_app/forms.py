@@ -19,8 +19,20 @@ class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
+# Пример выпадающего списка в ModelForm  здесь используется ModelChoiceField
+# from django import forms
+# from yourapp.models import Category, Product
+#
+# class ProductForm(forms.ModelForm):
+#     category = forms.ModelChoiceField(queryset=Category.objects.all())
+#
+#     class Meta:
+#         model = Product
+#         fields = ['name', 'category']
+
 
 class AddLinkForm(forms.ModelForm):
+
     class Meta:
         model = Link
         fields = ['short_url', 'is_enabled', 'long_url']
