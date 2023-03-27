@@ -1,23 +1,15 @@
+window.onload = function() {
+  var dropdown = document.getElementById("template_list").onchange();
+};
+
 function populateDropdowns() {
   var dropdown = document.getElementById('template_list');
   if (dropdown.value === 'Site') {
-    Site_fillTemplateURL2();
+    Site_fillTemplate_TargetURL();
   }
 }
 
-function Site_fillTemplateURL() {
-  var data = [
-    {
-      "id": "https://givinschool.org/pto",
-      "name": "https://givinschool.org/pto"
-    }
-  ];
-    $.each(data, function(i, option) {
-      $('#template_target_url').append($('<option/>').attr("value", option.id).text(option.name));
-    });
-}
-
-function Site_fillTemplateURL2() {
+function Site_fillTemplate_TargetURL() {
   var data = [
     {
       "value": "https://givinschool.org/pto",
