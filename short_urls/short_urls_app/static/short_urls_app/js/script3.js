@@ -1,3 +1,4 @@
+// Основные функции
 window.onload = function () {
     var dropdown = document.getElementById("template_list").onchange();
 };
@@ -12,9 +13,74 @@ function populateDropdowns() {
         Site_template_utm_campaign();
         Site_template_utm_term();
     }
+    else if (dropdown.value === 'VK') {
+        VK_template_target_url();
+        VK_template_utm_source();
+        VK_template_utm_medium();
+        VK_template_utm_content();
+        VK_template_utm_campaign();
+        VK_template_utm_term();
+    }
+    else if (dropdown.value === 'Zen') {
+        Zen_template_target_url();
+        Zen_template_utm_source();
+        Zen_template_utm_medium();
+        Zen_template_utm_content();
+        Zen_template_utm_campaign();
+        Zen_template_utm_term();
+    }
+    else if (dropdown.value === 'CallCenter') {
+        CallCenter_template_target_url();
+        CallCenter_template_utm_source();
+        CallCenter_template_utm_medium();
+        CallCenter_template_utm_content();
+        CallCenter_template_utm_campaign();
+        CallCenter_template_utm_term();
+    }
+    else if (dropdown.value === 'WebinarAndStream') {
+        WebinarAndStream_template_target_url();
+        WebinarAndStream_template_utm_source();
+        WebinarAndStream_template_utm_medium();
+        WebinarAndStream_template_utm_content();
+        WebinarAndStream_template_utm_campaign();
+        WebinarAndStream_template_utm_term();
+    }
+    else if (dropdown.value === 'YouTube') {
+        YouTube_template_target_url();
+        YouTube_template_utm_source();
+        YouTube_template_utm_medium();
+        YouTube_template_utm_content();
+        YouTube_template_utm_campaign();
+        YouTube_template_utm_term();
+    }
+    else if (dropdown.value === 'Donation') {
+        Donation_template_target_url();
+        Donation_template_utm_source();
+        Donation_template_utm_medium();
+        Donation_template_utm_content();
+        Donation_template_utm_campaign();
+        Donation_template_utm_term();
+    }
+    else if (dropdown.value === 'Instagram') {
+        Instagram_template_target_url();
+        Instagram_template_utm_source();
+        Instagram_template_utm_medium();
+        Instagram_template_utm_content();
+        Instagram_template_utm_campaign();
+        Instagram_template_utm_term();
+    }
+    else if (dropdown.value === 'Bot') {
+        Bot_template_target_url();
+        Bot_template_utm_source();
+        Bot_template_utm_medium();
+        Bot_template_utm_content();
+        Bot_template_utm_campaign();
+        Bot_template_utm_term();
+    }
 }
 
-function fillSelect(dropdown, data) {
+function fillSelect(element_id, data) {
+    var dropdown = document.getElementById(element_id);
     // Clear the dropdown list
     dropdown.innerHTML = "";
     // Add options to the dropdown list
@@ -30,20 +96,21 @@ function fillSelect(dropdown, data) {
     dropdown.options[0].defaultSelected = true;
 }
 
-var mainTargetURL = [{
-        "value": "https://givinschool.org/pto",
-        "text": "https://givinschool.org/pto"
-    },
-    {
-        "value": "https://givinschool3.org/pto",
-        "text": "https://givinschool3.org/pto"
-    }
-];
+/////////////////////////////////////////////////////
+//   Функции заполнения шаблонов
+/////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////
+//   Шаблон <option value="Site">Для сайта</option>
+/////////////////////////////////////////////////////
 function Site_template_target_url() {
-    var dropdown = document.getElementById('template_target_url');
-    console.log("dropdown=%o", dropdown);
-    fillSelect(dropdown, mainTargetURL)
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
 }
 
 function Site_template_utm_source() {
@@ -52,8 +119,7 @@ function Site_template_utm_source() {
             "text": "givinschool_org"
         }
     ];
-    var dropdown = document.getElementById('template_utm_source');
-    fillSelect(dropdown, data)
+    fillSelect('template_utm_source', data)
 }
 
 function Site_template_utm_medium() {
@@ -62,8 +128,7 @@ function Site_template_utm_medium() {
             "text": "event_page_GS"
         }
     ];
-    var dropdown = document.getElementById('template_utm_medium');
-    fillSelect(dropdown, data)
+    fillSelect('template_utm_medium', data)
 }
 
 function Site_template_utm_content() {
@@ -72,8 +137,7 @@ function Site_template_utm_content() {
             "text": "post_anons"
         }
     ];
-    var dropdown = document.getElementById('template_utm_content');
-    fillSelect(dropdown, data)
+    fillSelect('template_utm_content', data)
 }
 
 function Site_template_utm_campaign() {
@@ -82,8 +146,7 @@ function Site_template_utm_campaign() {
             "text": ""
         }
     ];
-    var dropdown = document.getElementById('template_utm_campaign');
-    fillSelect(dropdown, data)
+    fillSelect('template_utm_campaign', data)
 }
 
 function Site_template_utm_term() {
@@ -92,6 +155,37 @@ function Site_template_utm_term() {
             "text": ""
         }
     ];
-    var dropdown = document.getElementById('template_utm_term');
-    fillSelect(dropdown, data)
+    fillSelect('template_utm_term', data)
 }
+
+/////////////////////////////////////////////////////
+//    <option value="VK">Для рекламы ВК</option>
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+//    <option value="Zen">Для Яндекс.Дзен</option>
+/////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////
+//    <option value="CallCenter">Для Колл-центра</option>
+///////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////////////
+//    <option value="WebinarAndStream">Для вебинаров и стримов</option>
+/////////////////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+//    <option value="YouTube">YouTube</option>
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+//    <option value="Donation">Донейшен</option>
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+//    <option value="Instagram">Instagram</option>
+/////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////
+//    <option value="Bot">Бот</option>
+/////////////////////////////////////////////////////
