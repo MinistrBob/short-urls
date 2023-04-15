@@ -565,10 +565,118 @@ function WebinarAndStream_template_utm_term() {
 /////////////////////////////////////////////////////
 //    <option value="YouTube">YouTube</option>
 /////////////////////////////////////////////////////
+function YouTube_template_target_url() {
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function YouTube_template_utm_source() {
+    var data = [{
+            "value": "givinschool",
+            "text": "givinschool"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function YouTube_template_utm_medium() {
+    var data = [{
+            "value": "givinschool",
+            "text": "givinschool"
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function YouTube_template_utm_content() {
+    var data = [{
+            "value": "videoID_",
+            "text": "videoID_"
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function YouTube_template_utm_campaign() {
+    var data = [{
+            "value": "retrit",
+            "text": "retrit"
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function YouTube_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
 
 /////////////////////////////////////////////////////
 //    <option value="Donation">Донейшен</option>
 /////////////////////////////////////////////////////
+function Donation_template_target_url() {
+    var data = [{
+            "value": "https://probuzdenie.org/blagotvoritelnost",
+            "text": "https://probuzdenie.org/blagotvoritelnost"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function Donation_template_utm_source() {
+    var data = [{
+            "value": "ravnovesie",
+            "text": "ravnovesie"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function Donation_template_utm_medium() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function Donation_template_utm_content() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function Donation_template_utm_campaign() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function Donation_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
 
 /////////////////////////////////////////////////////
 //    <option value="Instagram">Instagram</option>
