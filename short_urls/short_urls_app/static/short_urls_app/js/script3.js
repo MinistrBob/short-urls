@@ -739,3 +739,57 @@ function Instagram_template_utm_term() {
 /////////////////////////////////////////////////////
 //    <option value="Bot">Бот</option>
 /////////////////////////////////////////////////////
+function Bot_template_target_url() {
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function Bot_template_utm_source() {
+    var data = [{
+            "value": "bot",
+            "text": "bot"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function Bot_template_utm_medium() {
+    var data = [{
+            "value": "tunnel_",
+            "text": "tunnel_"
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function Bot_template_utm_content() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function Bot_template_utm_campaign() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function Bot_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
