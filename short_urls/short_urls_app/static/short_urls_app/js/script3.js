@@ -491,6 +491,76 @@ function CallCenter_template_utm_term() {
 /////////////////////////////////////////////////////////////////////////
 //    <option value="WebinarAndStream">Для вебинаров и стримов</option>
 /////////////////////////////////////////////////////////////////////////
+function WebinarAndStream_template_target_url() {
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function WebinarAndStream_template_utm_source() {
+    var data = [{
+            "value": "uchebniy_kurs",
+            "text": "uchebniy_kurs"
+        },
+        {
+            "value": "online_translaciya",
+            "text": "online_translaciya"
+        },
+        {
+            "value": "webinar",
+            "text": "webinar"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function WebinarAndStream_template_utm_medium() {
+    var data = [{
+            "value": "shag",
+            "text": "shag"
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function WebinarAndStream_template_utm_content() {
+    var data = [{
+            "value": "post_anons",
+            "text": "post_anons"
+        },
+        {
+            "value": "post_anons",
+            "text": "post_anons"
+        },
+        {
+            "value": "post_anons",
+            "text": "post_anons"
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function WebinarAndStream_template_utm_campaign() {
+    var data = [{
+            "value": "shag_",
+            "text": "shag_"
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function WebinarAndStream_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
 
 /////////////////////////////////////////////////////
 //    <option value="YouTube">YouTube</option>
