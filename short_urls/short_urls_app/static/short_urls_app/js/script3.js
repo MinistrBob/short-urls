@@ -681,6 +681,60 @@ function Donation_template_utm_term() {
 /////////////////////////////////////////////////////
 //    <option value="Instagram">Instagram</option>
 /////////////////////////////////////////////////////
+function Instagram_template_target_url() {
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function Instagram_template_utm_source() {
+    var data = [{
+            "value": "instagram",
+            "text": "instagram"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function Instagram_template_utm_medium() {
+    var data = [{
+            "value": "taplink",
+            "text": "taplink"
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function Instagram_template_utm_content() {
+    var data = [{
+            "value": "post_s_isaykinym",
+            "text": "post_s_isaykinym"
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function Instagram_template_utm_campaign() {
+    var data = [{
+            "value": "dom_retrit",
+            "text": "dom_retrit"
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function Instagram_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
 
 /////////////////////////////////////////////////////
 //    <option value="Bot">Бот</option>
