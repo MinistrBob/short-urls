@@ -307,7 +307,7 @@ function VK_template_utm_term() {
 /////////////////////////////////////////////////////
 //    <option value="Zen">Для Яндекс.Дзен</option>
 /////////////////////////////////////////////////////
-function Site_template_target_url() {
+function Zen_template_target_url() {
     var data = [{
             "value": "https://givinschool.org/pto",
             "text": "https://givinschool.org/pto"
@@ -317,7 +317,7 @@ function Site_template_target_url() {
     fillSelect('template_target_url', data)
 }
 
-function Site_template_utm_source() {
+function Zen_template_utm_source() {
     var data = [{
             "value": "yandex_dzen",
             "text": "yandex_dzen"
@@ -354,7 +354,7 @@ function Site_template_utm_source() {
     fillSelect('template_utm_source', data)
 }
 
-function Site_template_utm_medium() {
+function Zen_template_utm_medium() {
     var data = [{
             "value": "article",
             "text": "article"
@@ -375,7 +375,7 @@ function Site_template_utm_medium() {
     fillSelect('template_utm_medium', data)
 }
 
-function Site_template_utm_content() {
+function Zen_template_utm_content() {
     var data = [{
             "value": "НАЗВАНИЕ СТАТЬИ",
             "text": "НАЗВАНИЕ СТАТЬИ"
@@ -384,7 +384,7 @@ function Site_template_utm_content() {
     fillSelect('template_utm_content', data)
 }
 
-function Site_template_utm_campaign() {
+function Zen_template_utm_campaign() {
     var data = [{
             "value": "",
             "text": ""
@@ -393,7 +393,7 @@ function Site_template_utm_campaign() {
     fillSelect('template_utm_campaign', data)
 }
 
-function Site_template_utm_term() {
+function Zen_template_utm_term() {
     var data = [{
             "value": "",
             "text": ""
@@ -405,6 +405,88 @@ function Site_template_utm_term() {
 ///////////////////////////////////////////////////////////
 //    <option value="CallCenter">Для Колл-центра</option>
 ///////////////////////////////////////////////////////////
+function CallCenter_template_target_url() {
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function CallCenter_template_utm_source() {
+    var data = [{
+            "value": "call_center",
+            "text": "call_center"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function CallCenter_template_utm_medium() {
+    var data = [{
+            "value": "mordanov",
+            "text": "mordanov"
+        },
+        {
+            "value": "davidova",
+            "text": "davidova"
+        },
+        {
+            "value": "haitova",
+            "text": "haitova"
+        },
+        {
+            "value": "homleva",
+            "text": "homleva"
+        },
+        {
+            "value": "ayaganov",
+            "text": "ayaganov"
+        },
+        {
+            "value": "smirnova",
+            "text": "smirnova"
+        },
+        {
+            "value": "goz",
+            "text": "goz"
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function CallCenter_template_utm_content() {
+    var data = [{
+            "value": "BAZA",
+            "text": "BAZA"
+        },
+        {
+            "value": "REKLAMA",
+            "text": "REKLAMA"
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function CallCenter_template_utm_campaign() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function CallCenter_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
 
 /////////////////////////////////////////////////////////////////////////
 //    <option value="WebinarAndStream">Для вебинаров и стримов</option>
