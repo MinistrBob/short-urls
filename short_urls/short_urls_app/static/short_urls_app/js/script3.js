@@ -307,6 +307,100 @@ function VK_template_utm_term() {
 /////////////////////////////////////////////////////
 //    <option value="Zen">Для Яндекс.Дзен</option>
 /////////////////////////////////////////////////////
+function Site_template_target_url() {
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function Site_template_utm_source() {
+    var data = [{
+            "value": "yandex_dzen",
+            "text": "yandex_dzen"
+        },
+        {
+            "value": "instagram",
+            "text": "instagram"
+        },
+        {
+            "value": "youtube",
+            "text": "youtube"
+        },
+        {
+            "value": "chat",
+            "text": "chat"
+        },
+        {
+            "value": "email",
+            "text": "email"
+        },
+        {
+            "value": "tm",
+            "text": "tm"
+        },
+        {
+            "value": "ok",
+            "text": "ok"
+        },
+        {
+            "value": "fb",
+            "text": "fb"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function Site_template_utm_medium() {
+    var data = [{
+            "value": "article",
+            "text": "article"
+        },
+        {
+            "value": "narrative",
+            "text": "narrative"
+        },
+        {
+            "value": "video",
+            "text": "video"
+        },
+        {
+            "value": "post",
+            "text": "post"
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function Site_template_utm_content() {
+    var data = [{
+            "value": "НАЗВАНИЕ СТАТЬИ",
+            "text": "НАЗВАНИЕ СТАТЬИ"
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function Site_template_utm_campaign() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function Site_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
 
 ///////////////////////////////////////////////////////////
 //    <option value="CallCenter">Для Колл-центра</option>
