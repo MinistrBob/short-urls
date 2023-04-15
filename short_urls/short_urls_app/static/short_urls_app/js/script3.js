@@ -161,6 +161,148 @@ function Site_template_utm_term() {
 /////////////////////////////////////////////////////
 //    <option value="VK">Для рекламы ВК</option>
 /////////////////////////////////////////////////////
+function VK_template_target_url() {
+    var data = [{
+            "value": "https://givinschool.org/pto",
+            "text": "https://givinschool.org/pto"
+        }
+    ];
+    //console.log("dropdown=%o", dropdown);
+    fillSelect('template_target_url', data)
+}
+
+function VK_template_utm_source() {
+    var data = [{
+            "value": "vk_target",
+            "text": "vk_target"
+        },
+        {
+            "value": "vk_market_pl",
+            "text": "vk_market_pl"
+        },
+        {
+            "value": "vk",
+            "text": "givinschool_org"
+        }
+    ];
+    fillSelect('template_utm_source', data)
+}
+
+function VK_template_utm_medium() {
+    var data = [{
+            "value": "article",
+            "text": "article"
+        },
+        {
+            "value": "efir",
+            "text": "efir"
+        },
+        {
+            "value": "anons",
+            "text": "anons"
+        },
+        {
+            "value": "narrative",
+            "text": "narrative"
+        },
+        {
+            "value": "video",
+            "text": "video"
+        },
+        {
+            "value": "post",
+            "text": "post"
+        },
+        {
+            "value": "vneshnij_sajt",
+            "text": "vneshnij_sajt"
+        },
+        {
+            "value": "universalnaya_zapis",
+            "text": "universalnaya_zapis"
+        },
+        {
+            "value": "zapis_s_knopkoj",
+            "text": "zapis_s_knopkoj"
+        },
+        {
+            "value": "vneshnij_sajt_CA_Mpl",
+            "text": "vneshnij_sajt_CA_Mpl"
+        },
+        {
+            "value": "vneshnij_sajt_CA_probuzdenie",
+            "text": "vneshnij_sajt_CA_probuzdenie"
+        },
+        {
+            "value": "vneshnij_sajt_CA_meditaciya_joga",
+            "text": "vneshnij_sajt_CA_meditaciya_joga"
+        },
+        {
+            "value": "vneshnij_sajt_CA_RF",
+            "text": "vneshnij_sajt_CA_RF"
+        },
+        {
+            "value": "universalnaya_zapis_CA_Mpl",
+            "text": "universalnaya_zapis_CA_Mpl"
+        },
+        {
+            "value": "universalnaya_zapis_CA_probuzdenie",
+            "text": "universalnaya_zapis_CA_probuzdenie"
+        },
+        {
+            "value": "universalnaya_zapis_CA_meditaciya_joga",
+            "text": "universalnaya_zapis_CA_meditaciya_joga"
+        },
+        {
+            "value": "universalnaya_zapis_CA_RF",
+            "text": "universalnaya_zapis_CA_RF"
+        },
+        {
+            "value": "zapis_s_knopkoj_CA_Mpl",
+            "text": "zapis_s_knopkoj_CA_Mpl"
+        },
+        {
+            "value": "zapis_s_knopkoj_CA_probuzdenie",
+            "text": "zapis_s_knopkoj_CA_probuzdenie"
+        },
+        {
+            "value": "zapis_s_knopkoj_CA_meditaciya_joga",
+            "text": "zapis_s_knopkoj_CA_meditaciya_joga"
+        },
+        {
+            "value": "zapis_s_knopkoj_CA_RF",
+            "text": "zapis_s_knopkoj_CA_RF"
+        }
+    ];
+    fillSelect('template_utm_medium', data)
+}
+
+function VK_template_utm_content() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_content', data)
+}
+
+function VK_template_utm_campaign() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_campaign', data)
+}
+
+function VK_template_utm_term() {
+    var data = [{
+            "value": "",
+            "text": ""
+        }
+    ];
+    fillSelect('template_utm_term', data)
+}
 
 /////////////////////////////////////////////////////
 //    <option value="Zen">Для Яндекс.Дзен</option>
