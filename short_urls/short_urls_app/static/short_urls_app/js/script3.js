@@ -88,12 +88,50 @@ function fillSelect(element_id, data) {
         var option = document.createElement("option");
         option.value = data[i].value;
         option.text = data[i].text;
-//        dropdown.add(option);
         dropdown.appendChild(option);
-        console.log("Added option %o for dropdown %o", option, dropdown);
+        //console.log("Added option %o for dropdown %o", option, dropdown);
     }
-    console.log("option[0]=%o", dropdown.options[0]);
+    //console.log("option[0]=%o", dropdown.options[0]);
     dropdown.options[0].defaultSelected = true;
+}
+
+// https://givinschool.org/pto?utm_source=givinschool_org&utm_medium=event_page_GS&utm_content=post_anons
+function buildURL() {
+    var output = document.getElementById('id_long_url');
+    //console.log("output=" + output)
+    var url = "";
+    var value = document.getElementById('input_template_target_url').value;
+    //console.log("value=" + value)
+    if (value) {
+        url = url + value + "?";
+    }
+    //console.log("url=" + url)
+    value = document.getElementById('input_template_utm_source').value;
+    if (value) {
+        url = url + "utm_source=" + value + "&";
+    }
+    value = document.getElementById('input_template_utm_medium').value;
+    if (value) {
+        url = url + "utm_medium=" + value + "&";
+    }
+    value = document.getElementById('input_template_utm_content').value;
+    if (value) {
+        url = url + "utm_content=" + value + "&";
+    }
+    value = document.getElementById('input_template_utm_campaign').value;
+    if (value) {
+        url = url + "utm_campaign=" + value + "&";
+    }
+    value = document.getElementById('input_template_utm_term').value;
+    if (value) {
+        url = url + "utm_term=" + value + "&";
+    }
+    console.log("url=" + url)
+    if (url.charAt(url.length - 1) == "&") {
+        url = url.substring(0, url.length - 1);
+    }
+    console.log("url=" + url)
+    output.innerHTML = url;
 }
 
 /////////////////////////////////////////////////////
