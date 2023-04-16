@@ -1,19 +1,120 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% comment %}
+{% block head_scripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{% endblock head_scripts %}
+{% endcomment %}
 
 {% block content %}
 <h1>Создание новой короткой ссылки</h1>
 <p><a href="{% url 'links_list' %}">[Вернуться назад]</a></p>
 <form action="{% url 'link_create' %}" method="post">
-    {% csrf_token %}
+  {% csrf_token %}
+  <div style="border:1px solid black;">
+    <p>Вы можете выбрать шаблон для генерации ссылки</p>
+    <p><label for="template_list">Шаблон:</label>
+      <select id="template_list" name="template_list" onchange="populateDropdowns()">
+        <!--        <option disabled>Выберите шаблон</option>-->
+        <option value="Site">Для сайта</option>
+        <option value="VK">Для рекламы ВК</option>
+        <option value="Zen">Для Яндекс.Дзен</option>
+        <option value="CallCenter">Для Колл-центра</option>
+        <option value="WebinarAndStream">Для вебинаров и стримов</option>
+        <option value="YouTube">YouTube</option>
+        <option value="Donation">Донейшен</option>
+        <option value="Instagram">Instagram</option>
+        <option value="Bot">Бот</option>
+      </select>
+    </p>
 
-    <div class="form-error">{{ form.non_field_errors }}</div>
+    <!--    <p>-->
+    <!--      <label for="template_target_url2">URL:</label>-->
+    <!--      <select id="template_target_url2" name="template_target_url2" style="width:300px;">-->
+    <!--        <option selected value="BMW">BMW</option>-->
+    <!--        <option value="Toyota">Toyota</option>-->
+    <!--        <option value="Mitsubishi">Mitsubishi</option>-->
+    <!--      </select>-->
+    <!--    </p>-->
 
+    <p>
+      <label for="input_template_target_url">URL:</label>
+      <input type="text" id="input_template_target_url" name="template_target_url" list="template_target_url"
+             style="width:300px;"/>
+      <datalist id="template_target_url"></datalist>
+    </p>
+    <p>
+      <label for="input_template_utm_source">utm_source:</label>
+      <input type="text" id="input_template_utm_source" name="template_utm_source" list="template_utm_source"
+             style="width:300px;"/>
+      <datalist id="template_utm_source"></datalist>
+    </p>
+    <p>
+      <label for="input_template_utm_medium">utm_medium:</label>
+      <input type="text" id="input_template_utm_medium" name="template_utm_medium" list="template_utm_medium"
+             style="width:300px;"/>
+      <datalist id="template_utm_medium"></datalist>
+    </p>
+    <p>
+      <label for="input_template_utm_content">utm_content:</label>
+      <input type="text" id="input_template_utm_content" name="template_utm_content" list="template_utm_content"
+             style="width:300px;"/>
+      <datalist id="template_utm_content"></datalist>
+    </p>
+    <p>
+      <label for="input_template_utm_campaign">utm_campaign:</label>
+      <input type="text" id="input_template_utm_campaign" name="template_utm_campaign" list="template_utm_campaign"
+             style="width:300px;"/>
+      <datalist id="template_utm_campaign"></datalist>
+    </p>
+    <p>
+      <label for="input_template_utm_term">utm_term:</label>
+      <input type="text" id="input_template_utm_term" name="template_utm_term" list="template_utm_term"
+             style="width:300px;"/>
+      <datalist id="template_utm_term"></datalist>
+    </p>
+    <!--    <p><label for="template_target_url">URL:</label>-->
+    <!--      <select id="template_target_url" name="template_target_url">-->
+    <!--      </select>-->
+    <!--    </p>-->
+<!--    <p><label for="template_utm_source">utm_source:</label>-->
+<!--      <select id="template_utm_source" name="template_utm_source">-->
+<!--      </select>-->
+<!--    </p>-->
+<!--    <p><label for="template_utm_medium">utm_medium:</label>-->
+<!--      <select id="template_utm_medium" name="template_utm_medium">-->
+<!--      </select>-->
+<!--    </p>-->
+<!--    <p><label for="template_utm_content">utm_content:</label>-->
+<!--      <select id="template_utm_content" name="template_utm_content">-->
+<!--      </select>-->
+<!--    </p>-->
+<!--    <p><label for="template_utm_campaign">utm_campaign:</label>-->
+<!--      <select id="template_utm_campaign" name="template_utm_campaign">-->
+<!--      </select>-->
+<!--    </p>-->
+<!--    <p><label for="template_utm_term">utm_term:</label>-->
+<!--      <select id="template_utm_term" name="template_utm_term">-->
+<!--      </select>-->
+<!--    </p>-->
+    <input type="button" onclick="buildURL()" value="Генерировать ссылку">
+  </div>
+  <div class="form-error">{{ form.non_field_errors }}</div>
+  <div>
     {% for f in form %}
-        <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
-        <div class="form-error">{{ f.errors }}</div>
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
     {% endfor %}
 
     <button type="submit">Сохранить</button>
-
+  </div>
 </form>
-{% endblock %}
+{% endblock content %}
+
+{% comment %}
+{% endcomment %}
+{% block body_scripts %}
+<script src="{% static 'short_urls_app/js/script3.js' %}"></script>
+{% endblock body_scripts %}
+
