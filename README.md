@@ -1,23 +1,3 @@
-NameError at /app/not-authorized
-name 'render' is not defined
-Request Method:	GET
-Request URL:	http://s.givinschool.org/app/not-authorized
-Django Version:	4.1.3
-Exception Type:	NameError
-Exception Value:	
-name 'render' is not defined
-Exception Location:	/app/short_urls_app/utils.py, line 57, in not_authorized
-Raised during:	short_urls_app.utils.not_authorized
-Python Executable:	/usr/local/bin/python
-Python Version:	3.10.10
-Python Path:	
-['/app',
- '/usr/local/lib/python310.zip',
- '/usr/local/lib/python3.10',
- '/usr/local/lib/python3.10/lib-dynload',
- '/usr/local/lib/python3.10/site-packages']
-Server time:	Sun, 12 Feb 2023 14:19:35 +0000
-==================
 # short-urls
 
 ## Static files
