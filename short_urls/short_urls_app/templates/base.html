@@ -13,6 +13,8 @@
     }
   </style>
   <link type="text/css" href="{% static 'short_urls_app/css/styles.css' %}" rel="stylesheet"/>
+  {% block head_scripts %}
+  {% endblock head_scripts %}
 </head>
 <body>
 <table class="table-page" border=0 cellpadding="0" cellspacing="0">
@@ -95,5 +97,7 @@
   </tr>
 </table>
 <!-- Конец footer'а и страницы -->
+{% block body_scripts %}
+{% endblock body_scripts %}
 </body>
 </html>
