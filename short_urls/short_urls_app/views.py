@@ -1,5 +1,8 @@
-# TODO: Добавить в Link creater, editor (те кто создал ссылку и последний редактор)
+# TODO: Не нужно кнопку, нужно просто форму создания возвращать сразу с проставленным слагом, если человек хочет, то может удалить его и поставить свой. Сделать кнопку генерации слага - слаг нужно проверять на уникальность.
+# TODO: Добавить в Link creater, editor (те кто создал ссылку и последний редактор). https://docs.djangoproject.com/en/4.1/topics/class-based-views/generic-editing/#models-and-request-user
 # TODO: Добавить шаблоны ссылок.
+# TODO: Имя и группа отображаются не на всех страницах.
+# TODO: При заходе на s.gs.org перебрасывать на основной сайт школы.   /app/home
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
@@ -11,6 +14,12 @@ from .forms import *
 from .utils import get_groups
 from .models import Link, Click
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-_"
+
+
+def get_slug():
+    return get_random_string(6, SLUG_CHARS)
 
 
 def home(request):  # HttpRequest
@@ -100,13 +109,27 @@ class LinksList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         # return Link.objects.filter(is_enabled=True)
-        return Link.objects.all()
+        return Link.objects.all().order_by('-time_update')
 
 
 class LinkCreate(CreateView):
     form_class = AddLinkForm
     template_name = 'link_create.html'
     success_url = reverse_lazy('links_list')
+
+    # def post(self, request):
+    #     print(request.POST)
+    #     return HttpResponse('Thank you for your message!')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_name'] = self.request.user
+        context['group_name'] = get_groups(self.request)
+        return context
+
+    def get_initial(self):
+        init_data = {'short_url': get_slug()}
+        return init_data
 
 
 class LinkEdit(UpdateView):
@@ -119,7 +142,10 @@ class LinkEdit(UpdateView):
 
     def get_context_data(self, **kwargs):
         kwargs['edit'] = True
-        return super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
+        context['user_name'] = self.request.user
+        context['group_name'] = get_groups(self.request)
+        return context
 
     def form_valid(self, form_class):
         return super(LinkEdit, self).form_valid(form_class)
