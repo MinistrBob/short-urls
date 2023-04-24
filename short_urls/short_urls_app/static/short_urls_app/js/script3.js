@@ -605,8 +605,16 @@ function WebinarAndStream_template_utm_term() {
 /////////////////////////////////////////////////////
 function YouTube_template_target_url() {
     var data = [{
-            "value": "https://givinschool.org/pto",
-            "text": "https://givinschool.org/pto"
+            "value": "https://salebot.site/md/2d85f0d0d0e3defda1bc44d57bf6f7c7",
+            "text": "https://salebot.site/md/2d85f0d0d0e3defda1bc44d57bf6f7c7"
+        },
+        {
+            "value": "https://test.worldofawakening.com/md/b3cf87cadf0400a2ceb992441bc1bce7",
+            "text": "https://test.worldofawakening.com/md/b3cf87cadf0400a2ceb992441bc1bce7"
+        },
+        {
+            "value": "https://salebot.site/md/9a917a8656e122a8a7e4d48298cab789",
+            "text": "https://salebot.site/md/9a917a8656e122a8a7e4d48298cab789"
         }
     ];
     //console.log("dropdown=%o", dropdown);
@@ -615,8 +623,12 @@ function YouTube_template_target_url() {
 
 function YouTube_template_utm_source() {
     var data = [{
-            "value": "givinschool",
-            "text": "givinschool"
+            "value": "youtube_old",
+            "text": "youtube_old"
+        },
+        {
+            "value": "youtube_new",
+            "text": "youtube_new"
         }
     ];
     fillSelect('template_utm_source', data)
@@ -624,8 +636,12 @@ function YouTube_template_utm_source() {
 
 function YouTube_template_utm_medium() {
     var data = [{
-            "value": "givinschool",
-            "text": "givinschool"
+            "value": "pod_video",
+            "text": "pod_video"
+        },
+        {
+            "value": "pod_article",
+            "text": "pod_article"
         }
     ];
     fillSelect('template_utm_medium', data)
