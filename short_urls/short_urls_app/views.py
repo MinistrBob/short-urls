@@ -163,6 +163,12 @@ class LinkDelete(DeleteView):
         messages.success(self.request, self.success_message)
         return super().post(request)
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_name'] = self.request.user
+        context['group_name'] = get_groups(self.request)
+        return context
+
 
 class StatList(LoginRequiredMixin, ListView):
     model = Click
