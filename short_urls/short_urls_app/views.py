@@ -1,7 +1,6 @@
+# TODO: В списке ссылок поле short_link нужно выводить короткую ссылку целиком, чтобы было удобно копировать. Или сделать кнопочку копировать, чтобы сразу в буфер обмена копировалось.
 # TODO: Не нужно кнопку, нужно просто форму создания возвращать сразу с проставленным слагом, если человек хочет, то может удалить его и поставить свой. Сделать кнопку генерации слага - слаг нужно проверять на уникальность.
 # TODO: Добавить в Link creater, editor (те кто создал ссылку и последний редактор). https://docs.djangoproject.com/en/4.1/topics/class-based-views/generic-editing/#models-and-request-user
-# TODO: Добавить шаблоны ссылок.
-# TODO: Имя и группа отображаются не на всех страницах.
 # TODO: При заходе на s.gs.org перебрасывать на основной сайт школы.   /app/home
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
@@ -14,6 +13,7 @@ from .forms import *
 from .utils import get_groups
 from .models import Link, Click
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 
 SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-_"
 
@@ -103,8 +103,11 @@ class LinksList(LoginRequiredMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['request'] = self.request
+        # print(self.request.__dict__)
+        print(self.request.META['HTTP_HOST'])
         context['user_name'] = self.request.user
         context['group_name'] = get_groups(self.request)
+        context['base_short_url'] = settings.BASE_SHORT_URL
         return context
 
     def get_queryset(self):

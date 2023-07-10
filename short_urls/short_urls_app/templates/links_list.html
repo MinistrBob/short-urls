@@ -47,7 +47,7 @@
   <tr>
     <td class="tg-0pky"><a href="{% url 'link_edit' l.short_url %}">[edit]</a></td>
     <td class="tg-0pky"><a href="{% url 'link_del' l.short_url %}">[del]</a></td>
-    <td class="tg-0pky"><a href="{{ request.host }}/{{l.short_url}}">{{l.short_url}}</a></td>
+    <td class="tg-0pky"><a href="{{ base_short_url }}/{{l.short_url}}">{{l.short_url}}</a></td>
     <td class="tg-0pky">{{l.long_url}}</td>
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create|date:"d.m.Y H:i:s"}}</td>
