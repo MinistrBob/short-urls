@@ -103,7 +103,11 @@ function buildURL() {
     var value = document.getElementById('input_template_target_url').value;
     //console.log("value=" + value)
     if (value) {
-        url = url + value + "?";
+        if (value.includes("?")) {
+            url = value + "&";
+        } else {
+            url = value + "?";
+        }
     }
     //console.log("url=" + url)
     value = document.getElementById('input_template_utm_source').value;

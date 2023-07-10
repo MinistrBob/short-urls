@@ -1,18 +1,20 @@
 #!/bin/bash
 # Docker HUB user and image name
+set -xeuo pipefail
+
 dh_username=ministrbob
 dh_image_name=short-urls
 
 echo -e "\n==> datetime now"
 date
 
-set -o pipefail
+#set -o pipefail
 echo -e "\n==> docker stop $dh_image_name"
 docker stop $dh_image_name
 echo -e "\n==> docker rm $dh_image_name"
 docker rm $dh_image_name
 
-set +o pipefail
+#set +o pipefail
 echo -e "\n==> docker pull image"
 docker pull $dh_username/$dh_image_name:latest
 echo -e "\n==> docker run"
