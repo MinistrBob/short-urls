@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 
 class Link(models.Model):
@@ -9,6 +10,8 @@ class Link(models.Model):
     long_url = models.CharField(max_length=65535, verbose_name='Длинная ссылка')
     time_create = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='creator', verbose_name='Создатель')
+    editor = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, related_name='editor', verbose_name='Редактор')
 
     def __str__(self):
         return self.short_url

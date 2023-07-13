@@ -38,7 +38,9 @@
     <th class="tg-fymr">short_url</th>
     <th class="tg-fymr">long_url</th>
     <th class="tg-fymr">is_enabled</th>
+    <th class="tg-fymr">Creator</th>
     <th class="tg-fymr">time_create</th>
+    <th class="tg-fymr">Editor</th>
     <th class="tg-fymr">time_update</th>
   </tr>
   </thead>
@@ -50,7 +52,9 @@
     <td class="tg-0pky"><a href="{{ base_short_url }}/{{l.short_url}}">{{l.short_url}}</a></td>
     <td class="tg-0pky">{{l.long_url}}</td>
     <td class="tg-0pky">{{l.is_enabled}}</td>
+    <td class="tg-0pky">{{l.creator}}</td>
     <td class="tg-0pky">{{l.time_create|date:"d.m.Y H:i:s"}}</td>
+    <td class="tg-0pky">{{l.editor}}</td>
     <td class="tg-0pky">{{l.time_update|date:"d.m.Y H:i:s"}}</td>
   </tr>
   {% endfor %}

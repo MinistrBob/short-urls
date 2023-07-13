@@ -35,7 +35,7 @@ class AddLinkForm(forms.ModelForm):
 
     class Meta:
         model = Link
-        fields = ['short_url', 'is_enabled', 'long_url']
+        fields = ['short_url', 'is_enabled', 'long_url', 'creator']
         widgets = {
             'short_url': forms.TextInput(attrs={'class': 'form-input'}),
             'long_url': forms.Textarea(attrs={'cols': 60, 'rows': 10}),
@@ -51,6 +51,7 @@ class EditLinkForm(forms.ModelForm):
     class Meta:
         model = Link
         fields = '__all__'
+        exclude = ('creator',)
         widgets = {
             'short_url': forms.TextInput(attrs={'class': 'form-input'}),
             'long_url': forms.Textarea(attrs={'cols': 60, 'rows': 10}),

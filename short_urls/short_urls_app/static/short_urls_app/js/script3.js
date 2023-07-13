@@ -131,7 +131,7 @@ function buildURL() {
         url = url + "utm_term=" + value + "&";
     }
     console.log("url=" + url)
-    if (url.charAt(url.length - 1) == "&") {
+    if (url.charAt(url.length - 1) == "&" || url.charAt(url.length - 1) == "?") {
         url = url.substring(0, url.length - 1);
     }
     console.log("url=" + url)

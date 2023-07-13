@@ -100,7 +100,7 @@ class LinksList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['request'] = self.request
         # print(self.request.__dict__)
-        print(self.request.META['HTTP_HOST'])
+        # print(self.request.META['HTTP_HOST'])
         context['user_name'] = self.request.user
         context['group_name'] = get_groups(self.request)
         context['base_short_url'] = settings.BASE_SHORT_URL
@@ -127,7 +127,7 @@ class LinkCreate(CreateView):
         return context
 
     def get_initial(self):
-        init_data = {'short_url': get_slug()}
+        init_data = {'short_url': get_slug(), 'creator': self.request.user}
         return init_data
 
 
@@ -149,6 +149,9 @@ class LinkEdit(UpdateView):
     def form_valid(self, form_class):
         return super(LinkEdit, self).form_valid(form_class)
 
+    def get_initial(self):
+        init_data = {'editor': self.request.user}
+        return init_data
 
 class LinkDelete(DeleteView):
     """ (Класс DeleteView в отличие от функции работает методом POST!!!) """
