@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 {% if edit %}
@@ -29,6 +30,13 @@
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
 .tg .tg-0lax{text-align:left;vertical-align:top}
 
+.copy-icon {
+  cursor: pointer;
+  margin-left: 10px;
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
 </style>
 <table class="tg">
   <thead>
@@ -47,7 +55,10 @@
   <tr>
     <td class="tg-0pky"><a href="{% url 'link_edit' l.short_url %}">[edit]</a></td>
     <td class="tg-0pky"><a href="{% url 'link_del' l.short_url %}">[del]</a></td>
-    <td class="tg-0pky" id="{{l.short_url}}"><a onclick="copyContent('{{l.short_url}}')" href="{{ base_short_url }}/{{l.short_url}}">{{l.short_url}}</a></td>
+    <td class="tg-0pky" id="{{l.short_url}}">
+      <a href="{{ base_short_url }}/{{l.short_url}}">{{l.short_url}}</a>
+      <img src="{% static 'short_urls_app/images/copy.png' %}" alt="Copy to clipboard" class="copy-icon" onclick="copyContent('{{l.short_url}}')" />
+    </td>
     <td class="tg-0pky">{{l.long_url}}</td>
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create|date:"d.m.Y H:i:s"}}</td>
@@ -68,7 +79,6 @@
     }
   }
 </script>
-
 
 {% endif %}
 {% endblock %}
