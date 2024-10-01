@@ -58,10 +58,9 @@
 </table>
 
 <script>
-  
   const copyContent = async (id) => {
     try {
-      let text = document.getElementById(id).innerHTML;
+      let text = document.getElementById(id).querySelector('a').href;
       await navigator.clipboard.writeText(text);
       console.log('Content copied to clipboard');
     } catch (err) {
@@ -69,6 +68,7 @@
     }
   }
 </script>
+
 
 {% endif %}
 {% endblock %}
