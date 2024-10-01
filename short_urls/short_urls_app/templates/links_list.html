@@ -28,6 +28,7 @@
 .tg .tg-1wig{font-weight:bold;text-align:left;vertical-align:top}
 .tg .tg-fymr{border-color:inherit;font-weight:bold;text-align:left;vertical-align:top}
 .tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-0pky-2{border-color:inherit;text-align:left;vertical-align:top;white-space:nowrap}
 .tg .tg-0lax{text-align:left;vertical-align:top}
 
 .copy-icon {
@@ -55,7 +56,7 @@
   <tr>
     <td class="tg-0pky"><a href="{% url 'link_edit' l.short_url %}">[edit]</a></td>
     <td class="tg-0pky"><a href="{% url 'link_del' l.short_url %}">[del]</a></td>
-    <td class="tg-0pky" id="{{l.short_url}}">
+    <td class="tg-0pky-2" id="{{l.short_url}}">
       <a href="{{ base_short_url }}/{{l.short_url}}" target="_blank">{{l.short_url}}</a>
       <img src="{% static 'short_urls_app/images/copy.png' %}" alt="Copy to clipboard" class="copy-icon" title="Копировать ссылку в буфер обмена" onclick="copyContent('{{l.short_url}}')" />
     </td>
