@@ -47,7 +47,7 @@
   <tr>
     <td class="tg-0pky"><a href="{% url 'link_edit' l.short_url %}">[edit]</a></td>
     <td class="tg-0pky"><a href="{% url 'link_del' l.short_url %}">[del]</a></td>
-    <td class="tg-0pky"><a href="{{ base_short_url }}/{{l.short_url}}">{{l.short_url}}</a></td>
+    <td class="tg-0pky" id="{{l.short_url}}"><a onclick="copyContent({{l.short_url}})" href="{{ base_short_url }}/{{l.short_url}}">{{l.short_url}}</a></td>
     <td class="tg-0pky">{{l.long_url}}</td>
     <td class="tg-0pky">{{l.is_enabled}}</td>
     <td class="tg-0pky">{{l.time_create|date:"d.m.Y H:i:s"}}</td>
@@ -56,5 +56,19 @@
   {% endfor %}
   </tbody>
 </table>
+
+<script>
+  
+  const copyContent = async (id) => {
+    try {
+      let text = document.getElementById(id).innerHTML;
+      await navigator.clipboard.writeText(text);
+      console.log('Content copied to clipboard');
+    } catch (err) {
+      console.error('Failed to copy: ', err);
+    }
+  }
+</script>
+
 {% endif %}
 {% endblock %}
