@@ -189,14 +189,26 @@ class StatList(LoginRequiredMixin, ListView):
 
 @require_GET
 def create_short_link(request):
+    # Отладка: выводим токен из запроса
+    print(f"Received token: {request.GET.get('token')}")
+    print(f"Received URL: {request.GET.get('url')}")
+
+    # Проверяем наличие параметра 'token' в запросе и его соответствие с заданным значением
+    token = request.GET.get('token')
+    if token != settings.TOKEN:
+        return JsonResponse({'error': 'Unauthorized access'}, status=403)
+
+    # Параметр 'url' обязателен
     url = request.GET.get('url')
     if not url:
         return JsonResponse({'error': 'URL is required'}, status=400)
 
-    # Пример того, как можно генерировать короткую ссылку:
-    short_url = f"https://s.givinschool.org/{get_slug()}"
+    # Генерация короткой ссылки
+    slug = get_slug()
+    short_url = f"https://s.givinschool.org/{slug}"
 
-    # Сохранить короткую ссылку в базе данных (по желанию)
-    Link.objects.create(short_url=short_url, long_url=url, is_enabled=True)
+    # Сохранение ссылки в базу данных
+    link = Link(short_url=slug, long_url=url, is_enabled=True)
+    link.save()  # Сохраняем объект в базе данных
 
     return JsonResponse({'short_url': short_url})
