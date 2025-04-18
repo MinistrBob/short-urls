@@ -96,7 +96,7 @@ jobs:
       - name: Push the latest Docker image
         run: docker push ministrbob/short-urls:$LABEL
       - name: Upload short_urls_run.sh
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: sh_file
           path: short_urls_run.sh
