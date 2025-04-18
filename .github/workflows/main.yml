@@ -183,7 +183,7 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
       - name: Download short_urls_run.sh
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: sh_file
 # result pwd = /home/runner/work/short-urls/short-urls
