@@ -14,6 +14,7 @@ urlpatterns = [
     path('app/login', AppLoginView.as_view(), name='login'),
     path('app/logout', AppLogoutView.as_view(), name='logout'),
     path('app/not-authorized', not_authorized, name='not_authorized'),
+    path('api/link-create', create_short_link, name='link_create_api'),
 ]
 
 handler404 = page_not_found_404

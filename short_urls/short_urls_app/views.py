@@ -3,12 +3,13 @@
 # TODO: Добавить в Link creater, editor (те кто создал ссылку и последний редактор). https://docs.djangoproject.com/en/4.1/topics/class-based-views/generic-editing/#models-and-request-user
 # TODO: При заходе на s.gs.org перебрасывать на основной сайт школы.   /app/home
 from django.contrib import messages
-from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse, reverse_lazy
 from django.utils.crypto import get_random_string
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.views.decorators.http import require_GET
 from .forms import *
 from .utils import get_groups
 from .models import Link, Click
@@ -16,7 +17,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 
 SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-_"
-
 
 def get_slug():
     return get_random_string(6, SLUG_CHARS)
@@ -185,3 +185,18 @@ class StatList(LoginRequiredMixin, ListView):
         context['user_name'] = self.request.user
         context['group_name'] = get_groups(self.request)
         return context
+
+
+@require_GET
+def create_short_link(request):
+    url = request.GET.get('url')
+    if not url:
+        return JsonResponse({'error': 'URL is required'}, status=400)
+
+    # Пример того, как можно генерировать короткую ссылку:
+    short_url = f"https://s.givinschool.org/{get_slug()}"
+
+    # Сохранить короткую ссылку в базе данных (по желанию)
+    Link.objects.create(short_url=short_url, long_url=url, is_enabled=True)
+
+    return JsonResponse({'short_url': short_url})
