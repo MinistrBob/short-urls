@@ -15,6 +15,7 @@ from .utils import get_groups
 from .models import Link, Click
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from django.db import connection
 
 SLUG_CHARS = "abcdefghijklmnopqrstuvwxyz0123456789-_"
 
@@ -189,11 +190,17 @@ class StatList(LoginRequiredMixin, ListView):
 
 @require_GET
 def create_short_link(request):
-    # Отладка: выводим токен из запроса
-    print(f"Received token: {request.GET.get('token')}")
+    """
+    Функция для создания коротких ссылок для Морозова. На входе подаётся запрос с параметром 'url' и 'token'.
+    token - обязательный параметр, нужен для безопасности, чтобы только те кто имеет токен могли воспользоваться сервисом.
+    :param request:
+    :return:
+    """
+    # Отладка: выводим токен и URL из запроса
+    # print(f"Received token: {request.GET.get('token')}")
     print(f"Received URL: {request.GET.get('url')}")
 
-    # Проверяем наличие параметра 'token' в запросе и его соответствие с заданным значением
+    # Проверяем наличие параметра 'token' и его соответствие
     token = request.GET.get('token')
     if token != settings.TOKEN:
         return JsonResponse({'error': 'Unauthorized access'}, status=403)
@@ -203,12 +210,30 @@ def create_short_link(request):
     if not url:
         return JsonResponse({'error': 'URL is required'}, status=400)
 
-    # Генерация короткой ссылки
+    # Проверяем, существует ли long_url в базе, и берём последнюю запись по rowid
+    with connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT short_url
+            FROM short_urls_app_link
+            WHERE long_url = %s
+            ORDER BY rowid DESC
+            LIMIT 1
+        """, [url])
+        row = cursor.fetchone()
+
+    if row:
+        # Если найдена запись, возвращаем её short_url
+        short_url = f"https://s.givinschool.org/{row[0]}"
+        print(f"slug={row[0]}")
+        return JsonResponse({'short_url': short_url})
+
+    # Если long_url не найден, создаём новую короткую ссылку
     slug = get_slug()
     short_url = f"https://s.givinschool.org/{slug}"
 
-    # Сохранение ссылки в базу данных
+    # Сохранение новой ссылки в базу данных
     link = Link(short_url=slug, long_url=url, is_enabled=True)
-    link.save()  # Сохраняем объект в базе данных
+    link.save()
 
+    print(f"slug={slug}")
     return JsonResponse({'short_url': short_url})

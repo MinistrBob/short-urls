@@ -46,3 +46,27 @@ python manage.py migrate
 
 python manage.py runserver
 ```
+
+## Работа с sqlite3 в командной строке
+
+Команды по работе с БД sqlite в командной строке Linux.  
+
+```
+sudo -i
+sqlite3 /home/short-urls/short_urls.sqlite3
+PRAGMA foreign_keys = ON;
+PRAGMA foreign_keys;
+
+SELECT rowid, * FROM short_urls_app_link;
+
+-- Выполнить скрипт
+sqlite3 /home/short-urls/short_urls.sqlite3 < /tmp/script.sql
+-- Резервное копирование базы данных: SQLite поддерживает экспорт данных в текстовый файл
+sqlite3 /home/short-urls/short_urls.sqlite3 .dump > /tmp/backup.sql
+-- Импорт данных: Для восстановления данных из файла
+sqlite3 /home/short-urls/short_urls.sqlite3 < /tmp/backup.sql
+-- Сохранить результат запроса в текстовый файл
+sqlite3 /home/short-urls/short_urls.sqlite3 "select * from short_urls_app_link;" > /tmp/members.txt
+
+.exit
+```
